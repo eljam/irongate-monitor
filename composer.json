@@ -1,0 +1,23 @@
+{
+    "name": "eljam/irongate-monitor",
+    "description": "Automatic update of irongate service",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Guillaume Cavana",
+            "email": "guillaume.cavana@gmail.com"
+        }
+    ],
+    "require": {
+        "php" : ">=5.4.0",
+        "wyrihaximus/react-guzzle-ring": "^1.0",
+        "symfony/console": "^2.6",
+        "pimple/pimple": "^3.0",
+        "symfony/yaml": "^2.6"
+    },
+    "autoload" : {
+        "psr-4" : {
+            "Irongate\\Monitor\\" : "src/"
+        }
+    }
+}
