@@ -11,17 +11,26 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use WyriHaximus\React\RingPHP\HttpClientAdapter;
 
+/**
+ * RunCommand.
+ */
 class RunCommand extends BaseCommand
 {
+    /**
+     * {@inheritdoc}
+     */
     protected function configure()
     {
         $this
             ->setName('run')
             ->setDescription('Launch the monitor process')
-            ->setHelp('Monitor all url define in .irongate.yml')
+            ->setHelp('Monitor all url define in .irongate-monitor.yml')
         ;
     }
 
+    /**
+     * {@inheritdoc}
+     */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $table = new Table($output);
@@ -52,9 +61,7 @@ class RunCommand extends BaseCommand
                 $rows[$site->getName()][] = $site->getName();
                 $rows[$site->getName()][] = $site->getUrl();
                 $rows[$site->getName()][] = $response->getStatusCode();
-
                 $progress->advance();
-
                 sleep(1);
             }, function (\Exception $error) use (&$rows, $site, $output) {
                 $output->writeln(

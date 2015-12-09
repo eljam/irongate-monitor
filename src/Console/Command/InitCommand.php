@@ -6,10 +6,20 @@ use Irongate\Monitor\DependencyInjection\Exception\ConfigurationLoadingException
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
+/**
+ * InitCommand
+ */
 class InitCommand extends BaseCommand
 {
+    /**
+     * [$configuration description]
+     * @var array
+     */
     protected $configuration = array();
 
+    /**
+     * {@inheritdoc}
+     */
     protected function configure()
     {
         $this
@@ -43,8 +53,10 @@ class InitCommand extends BaseCommand
                 ],
                 'sites' => [
                     'irongate' => [
-                        'url' => 'http://irongate.dev',
+                        'url' => 'http://google.com',
                         'timeout' => 1,
+                        'status_code' => 200,
+                        'service_uid' => ''
                     ],
                 ],
             ];
@@ -119,6 +131,9 @@ class InitCommand extends BaseCommand
         }
     }
 
+    /**
+     * {@inheritdoc}
+     */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $dialog = $this->getHelperSet()->get('dialog');

@@ -5,19 +5,28 @@ namespace Irongate\Monitor\Configuration;
 use Irongate\Monitor\DependencyInjection\Exception\ConfigurationLoadingException;
 use Symfony\Component\Yaml\Yaml;
 
+/**
+ * ConfigurationLoader.
+ */
 class ConfigurationLoader
 {
     /**
+     * $rootDirectory.
+     *
      * @var string
      */
     protected $rootDirectory;
 
     /**
+     * $configFilepath.
+     *
      * @var string
      */
     protected $configFilepath;
 
     /**
+     * $filename.
+     *
      * @var string
      */
     protected $filename;
@@ -32,6 +41,11 @@ class ConfigurationLoader
         $this->filename = $filename;
     }
 
+    /**
+     * loadConfiguration.
+     *
+     * @return mixed
+     */
     public function loadConfiguration()
     {
         $filePath = $this->getConfigurationFilepath();
@@ -46,6 +60,8 @@ class ConfigurationLoader
     }
 
     /**
+     * getConfigurationFilepath.
+     *
      * @return string The configuration filepath
      */
     public function getConfigurationFilepath()
@@ -54,7 +70,9 @@ class ConfigurationLoader
     }
 
     /**
-     * @param $configFilepath string The configuration filepath
+     * setConfigurationFilepath.
+     *
+     * @param string $configFilepath The configuration filepath
      */
     public function setConfigurationFilepath($configFilepath)
     {
@@ -62,6 +80,8 @@ class ConfigurationLoader
     }
 
     /**
+     * getRootDirectory.
+     *
      * @return string The root directory
      */
     public function getRootDirectory()
@@ -70,6 +90,8 @@ class ConfigurationLoader
     }
 
     /**
+     * setRootDirectory.
+     *
      * @param string $rootDirectory The root directory
      */
     public function setRootDirectory($rootDirectory)

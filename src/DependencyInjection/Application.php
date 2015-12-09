@@ -7,10 +7,19 @@ use Irongate\Monitor\Configuration\ConfigurationLoader;
 use Irongate\Monitor\Site\SiteProvider;
 use Pimple\Container;
 
+/**
+ * Application.
+ */
 class Application extends Container
 {
+    /**
+     * @const VERSION Version of the application
+     */
     const VERSION = '0.1-DEV';
 
+    /**
+     * @const CONFIG_FILENAME Filename of the configuration file
+     */
     const CONFIG_FILENAME = '.irongate-monitor.yml';
 
     /**

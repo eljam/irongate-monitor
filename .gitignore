@@ -1,2 +1,3 @@
 .irongate-monitor.yml
+composer.lock
 vendor/
