@@ -9,16 +9,18 @@ class Result
 {
     protected $name;
     protected $statusCode;
+    protected $responseTime;
 
     /**
      * Constructor.
      * @param string $name
      * @param string $statusCode
      */
-    public function __construct($name, $statusCode)
+    public function __construct($name, $statusCode, $responseTime)
     {
         $this->name = $name;
         $this->statusCode = $statusCode;
+        $this->responseTime = $responseTime;
     }
 
     /**
@@ -37,5 +39,14 @@ class Result
     public function getStatusCode()
     {
         return $this->statusCode;
+    }
+
+    /**
+     * getReponseTime.
+     * @return double
+     */
+    public function getReponseTime()
+    {
+        return $this->responseTime;
     }
 }

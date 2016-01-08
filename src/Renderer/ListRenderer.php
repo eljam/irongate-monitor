@@ -32,6 +32,8 @@ class ListRenderer implements RendererInterface
             $this->io->write(sprintf('<fg=white>%s</fg=white>', $result->getName()));
             $this->io->write(" = ");
             $this->io->write(sprintf('<fg=green>%s</fg=green>', $result->getStatusCode()));
+            $this->io->write(" = ");
+            $this->io->write($result->getReponseTime());
             $this->io->write("\n");
         }
     }
