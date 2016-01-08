@@ -1,6 +1,6 @@
 <?php
 
-namespace Irongate\Monitor\DependencyInjection\Exception;
+namespace Monitor\DependencyInjection\Exception;
 
 use InvalidArgumentException;
 

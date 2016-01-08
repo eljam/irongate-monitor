@@ -1,12 +1,12 @@
 <?php
 
-namespace Irongate\Monitor\Configuration;
+namespace Monitor\Configuration;
 
-use Irongate\Monitor\DependencyInjection\Exception\ConfigurationLoadingException;
+use Monitor\DependencyInjection\Exception\ConfigurationLoadingException;
 use Symfony\Component\Yaml\Yaml;
 
 /**
- * ConfigurationLoader.
+ * @author Guillaume Cavana <guillaume.cavana@gmail.com>
  */
 class ConfigurationLoader
 {

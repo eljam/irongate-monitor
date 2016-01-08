@@ -1,6 +1,6 @@
 <?php
 
-namespace Irongate\Monitor\Configuration;
+namespace Monitor\Configuration;
 
 use Symfony\Component\Yaml\Yaml;
 
