@@ -5,7 +5,6 @@ namespace Hogosha\Monitor\Client;
 use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\Psr7\Response;
-use Hogosha\Monitor\Client\GuzzleClient;
 use Hogosha\Monitor\Configuration\ConfigurationLoader;
 use Hogosha\Monitor\Model\Result;
 use Hogosha\Monitor\Model\ResultCollection;
@@ -64,6 +63,7 @@ class RunnerTest extends \PHPUnit_Framework_TestCase
 
     /**
      * mockClient.
+     *
      * @return MockHandler
      */
     private function mockClient()

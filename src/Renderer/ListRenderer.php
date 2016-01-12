@@ -3,7 +3,6 @@
 namespace Hogosha\Monitor\Renderer;
 
 use Hogosha\Monitor\Model\ResultCollection;
-use Hogosha\Monitor\Renderer\RendererInterface;
 use Webmozart\Console\Api\IO\IO;
 
 /**
@@ -15,6 +14,7 @@ class ListRenderer implements RendererInterface
 
     /**
      * Constructor.
+     *
      * @param IO $io
      */
     public function __construct(IO $io)
@@ -28,11 +28,11 @@ class ListRenderer implements RendererInterface
     public function render(ResultCollection $resultCollection)
     {
         foreach ($resultCollection as $result) {
-            $this->io->write("- ");
+            $this->io->write('- ');
             $this->io->write(sprintf('<fg=white>%s</fg=white>', $result->getName()));
-            $this->io->write(" = ");
+            $this->io->write(' = ');
             $this->io->write(sprintf('<fg=green>%s</fg=green>', $result->getStatusCode()));
-            $this->io->write(" = ");
+            $this->io->write(' = ');
             $this->io->write($result->getReponseTime());
             $this->io->write("\n");
         }

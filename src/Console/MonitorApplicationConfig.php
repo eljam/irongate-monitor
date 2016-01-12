@@ -2,14 +2,11 @@
 
 namespace Hogosha\Monitor\Console;
 
-use Hogosha\Monitor\Client\GuzzleClient;
 use Hogosha\Monitor\Configuration\ConfigurationDumper;
 use Hogosha\Monitor\Configuration\ConfigurationLoader;
 use Hogosha\Monitor\Console\Handler\InitHandler;
 use Hogosha\Monitor\Console\Handler\RunHandler;
-use Hogosha\Monitor\Model\UrlProvider;
 use Hogosha\Monitor\Monitor;
-use Hogosha\Monitor\Runner\Runner;
 use Symfony\Component\Filesystem\Filesystem;
 use Webmozart\Console\Api\Args\Format\Option;
 use Webmozart\Console\Config\DefaultApplicationConfig;
@@ -19,7 +16,6 @@ use Webmozart\Console\Config\DefaultApplicationConfig;
  */
 class MonitorApplicationConfig extends DefaultApplicationConfig
 {
-
     /**
      * {@inheritdoc}
      */
@@ -27,7 +23,7 @@ class MonitorApplicationConfig extends DefaultApplicationConfig
     {
         parent::configure();
 
-        $configurationLoader =  new ConfigurationLoader();
+        $configurationLoader = new ConfigurationLoader();
         $configurationDumper = new ConfigurationDumper();
 
         $filesystem = new Filesystem();

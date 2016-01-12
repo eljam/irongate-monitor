@@ -13,6 +13,7 @@ class Result
 
     /**
      * Constructor.
+     *
      * @param string $name
      * @param string $statusCode
      * @param float  $responseTime
@@ -26,6 +27,7 @@ class Result
 
     /**
      * getName.
+     *
      * @return string
      */
     public function getName()
@@ -35,6 +37,7 @@ class Result
 
     /**
      * getStatusCode.
+     *
      * @return int
      */
     public function getStatusCode()
@@ -44,7 +47,8 @@ class Result
 
     /**
      * getReponseTime.
-     * @return double
+     *
+     * @return float
      */
     public function getReponseTime()
     {

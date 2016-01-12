@@ -3,7 +3,6 @@
 namespace Hogosha\Monitor\Model;
 
 use Hogosha\Monitor\Configuration\ConfigurationLoader;
-use Hogosha\Monitor\Model\UrlInfo;
 
 /**
  * @author Guillaume Cavana <guillaume.cavana@gmail.com>
@@ -12,12 +11,14 @@ class UrlProvider
 {
     /**
      * $configurationLoader.
+     *
      * @var ConfigurationLoader
      */
     protected $configurationLoader;
 
     /**
      * Constructor.
+     *
      * @param ConfigurationLoader $configurationLoader
      */
     public function __construct(ConfigurationLoader $configurationLoader)
@@ -27,6 +28,7 @@ class UrlProvider
 
     /**
      * getUrls.
+     *
      * @return array
      */
     public function getUrls()

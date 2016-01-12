@@ -3,8 +3,6 @@
 namespace Hogosha\Monitor\Renderer;
 
 use Hogosha\Monitor\Monitor;
-use Hogosha\Monitor\Renderer\RendererInterface;
-use Hogosha\Monitor\Renderer\TableRenderer;
 use Webmozart\Console\Api\IO\IO;
 
 /**
@@ -13,9 +11,11 @@ use Webmozart\Console\Api\IO\IO;
 class RendererFactory
 {
     /**
-     * create
-     * @param  string $type
-     * @param  IO     $io
+     * create.
+     *
+     * @param string $type
+     * @param IO     $io
+     *
      * @return RendererInterface
      */
     public static function create($type, IO $io)

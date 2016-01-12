@@ -3,7 +3,6 @@
 namespace Hogosha\Monitor\Renderer;
 
 use Hogosha\Monitor\Model\ResultCollection;
-use Hogosha\Monitor\Renderer\RendererInterface;
 use Webmozart\Console\Api\IO\IO;
 use Webmozart\Console\UI\Component\Table;
 
@@ -16,6 +15,7 @@ class TableRenderer implements RendererInterface
 
     /**
      * Constructor.
+     *
      * @param IO $io
      */
     public function __construct(IO $io)

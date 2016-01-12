@@ -11,8 +11,8 @@ use Hogosha\Monitor\Model\ResultCollection;
 use Hogosha\Monitor\Model\UrlProvider;
 
 /**
-* @author Guillaume Cavana <guillaume.cavana@gmail.com>
-*/
+ * @author Guillaume Cavana <guillaume.cavana@gmail.com>
+ */
 class Runner
 {
     protected $urlProvider;
@@ -21,6 +21,7 @@ class Runner
 
     /**
      * Constructor.
+     *
      * @param UrlProvider  $urlProvider
      * @param GuzzleClient $client
      */
@@ -32,6 +33,7 @@ class Runner
 
     /**
      * run.
+     *
      * @return array
      */
     public function run()
@@ -58,8 +60,10 @@ class Runner
 
     /**
      * createResultCollection.
+     *
      * @param array $results
      * @param array $stats
+     *
      * @return ResultCollection
      */
     private function createResultCollection(array $results, array $stats)

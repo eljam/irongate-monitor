@@ -7,7 +7,6 @@ use Hogosha\Monitor\Configuration\ConfigurationLoader;
 use Hogosha\Monitor\DependencyInjection\Exception\ConfigurationLoadingException;
 use Symfony\Component\Filesystem\Filesystem;
 use Webmozart\Console\Api\Args\Args;
-use Webmozart\Console\Api\Command\Command;
 use Webmozart\Console\Api\IO\IO;
 
 /**
@@ -17,18 +16,21 @@ class InitHandler
 {
     /**
      * $configurationLoader.
+     *
      * @var ConfigurationLoader
      */
     protected $configurationLoader;
 
     /**
      * $configurationDumper.
+     *
      * @var ConfigurationDumper
      */
     protected $configurationDumper;
 
     /**
      * Constructor.
+     *
      * @param ConfigurationLoader $configurationLoader
      * @param ConfigurationDumper $configurationDumper
      * @param Filesystem          $filesystem
@@ -45,9 +47,11 @@ class InitHandler
 
     /**
      * handle.
-     * @param  Args $args
-     * @param  IO   $io
-     * @return integer
+     *
+     * @param Args $args
+     * @param IO   $io
+     *
+     * @return int
      */
     public function handle(Args $args, IO $io)
     {

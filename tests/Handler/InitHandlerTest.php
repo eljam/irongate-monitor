@@ -5,7 +5,6 @@ namespace Hogosha\Monitor\Client;
 use Hogosha\Monitor\Configuration\ConfigurationDumper;
 use Hogosha\Monitor\Configuration\ConfigurationLoader;
 use Hogosha\Monitor\Console\Handler\InitHandler;
-use Hogosha\Monitor\DependencyInjection\Exception\ConfigurationLoadingException;
 use Hogosha\Monitor\Monitor;
 use Prophecy\Argument;
 use Prophecy\type;
@@ -25,7 +24,6 @@ class InitHandlerTest extends \PHPUnit_Framework_TestCase
      */
     public function testExistingConfigurationFile()
     {
-
         $this->file = sys_get_temp_dir().DIRECTORY_SEPARATOR.Monitor::CONFIG_FILENAME;
 
         // Dump the configuration set by the enduser
@@ -57,7 +55,7 @@ class InitHandlerTest extends \PHPUnit_Framework_TestCase
         file_put_contents($this->file, $content);
 
         //Test if the enduser configuration is kept by the ConfigurationLoader
-        $configurationLoader =  new ConfigurationLoader();
+        $configurationLoader = new ConfigurationLoader();
 
         $configurationDumper = new ConfigurationDumper();
         $filesystem = new Filesystem();
@@ -125,7 +123,7 @@ class InitHandlerTest extends \PHPUnit_Framework_TestCase
     {
         $testFile = sys_get_temp_dir().DIRECTORY_SEPARATOR.Monitor::CONFIG_FILENAME;
 
-        $configurationLoader =  new ConfigurationLoader();
+        $configurationLoader = new ConfigurationLoader();
         $configurationDumper = new ConfigurationDumper();
         $filesystem = new Filesystem();
 

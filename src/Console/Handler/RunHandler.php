@@ -8,7 +8,6 @@ use Hogosha\Monitor\Model\UrlProvider;
 use Hogosha\Monitor\Renderer\RendererFactory;
 use Hogosha\Monitor\Runner\Runner;
 use Webmozart\Console\Api\Args\Args;
-use Webmozart\Console\Api\Command\Command;
 use Webmozart\Console\Api\IO\IO;
 
 /**
@@ -18,12 +17,14 @@ class RunHandler
 {
     /**
      * $configurationLoader.
+     *
      * @var ConfigurationLoader
      */
     protected $configurationLoader;
 
     /**
      * Constructor.
+     *
      * @param ConfigurationLoader $configurationLoader
      */
     public function __construct(ConfigurationLoader $configurationLoader)
@@ -33,10 +34,11 @@ class RunHandler
 
     /**
      * handle.
-     * @param  Args $args
-     * @param  IO   $io
      *
-     * @return string
+     * @param Args $args
+     * @param IO   $io
+     *
+     * @return int
      */
     public function handle(Args $args, IO $io)
     {

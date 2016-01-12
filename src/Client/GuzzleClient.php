@@ -12,7 +12,9 @@ class GuzzleClient
 {
     /**
      * createClient.
+     *
      * @param array $options
+     *
      * @return Client
      */
     public static function createClient($options = [])

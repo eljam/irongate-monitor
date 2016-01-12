@@ -13,9 +13,10 @@ class UrlInfo
 
     /**
      * Constructor.
-     * @param string  $name
-     * @param string  $url
-     * @param integer $timeout
+     *
+     * @param string $name
+     * @param string $url
+     * @param int    $timeout
      */
     public function __construct($name, $url, $timeout)
     {
@@ -26,6 +27,7 @@ class UrlInfo
 
     /**
      * getName.
+     *
      * @return string
      */
     public function getName()
@@ -35,6 +37,7 @@ class UrlInfo
 
     /**
      * getUrl.
+     *
      * @return string
      */
     public function getUrl()
@@ -44,7 +47,8 @@ class UrlInfo
 
     /**
      * getTimeOut.
-     * @return integer
+     *
+     * @return int
      */
     public function getTimeOut()
     {
