@@ -1,14 +1,14 @@
 <?php
 
-namespace Monitor\Runner;
+namespace Hogosha\Monitor\Runner;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Promise;
 use GuzzleHttp\TransferStats;
-use Monitor\Client\GuzzleClient;
-use Monitor\Model\Result;
-use Monitor\Model\ResultCollection;
-use Monitor\Model\UrlProvider;
+use Hogosha\Monitor\Client\GuzzleClient;
+use Hogosha\Monitor\Model\Result;
+use Hogosha\Monitor\Model\ResultCollection;
+use Hogosha\Monitor\Model\UrlProvider;
 
 /**
 * @author Guillaume Cavana <guillaume.cavana@gmail.com>
@@ -45,7 +45,7 @@ class Runner
                 [
                     'timeout' => $url->getTimeout(),
                     'on_stats' => function (TransferStats $tranferStats) use (&$stats, $url) {
-                        $stats[$url->getName()]['total_time'] = $tranferStats->getHandlerStats()['total_time'];
+                        $stats[$url->getName()]['total_time'] = $tranferStats->getTransferTime();
                     },
                 ]
             );

@@ -1,8 +1,8 @@
 <?php
 
-namespace Monitor\Renderer;
+namespace Hogosha\Monitor\Renderer;
 
-use Monitor\Model\ResultCollection;
+use Hogosha\Monitor\Model\ResultCollection;
 use Webmozart\Console\Api\IO\IO;
 
 /**

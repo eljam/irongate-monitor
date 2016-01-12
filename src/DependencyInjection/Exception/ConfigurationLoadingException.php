@@ -1,6 +1,6 @@
 <?php
 
-namespace Monitor\DependencyInjection\Exception;
+namespace Hogosha\Monitor\DependencyInjection\Exception;
 
 use InvalidArgumentException;
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace Monitor\Configuration;
+namespace Hogosha\Monitor\Configuration;
 
 use Symfony\Component\Yaml\Yaml;
 

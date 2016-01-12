@@ -1,9 +1,9 @@
 <?php
 
-namespace Monitor\Model;
+namespace Hogosha\Monitor\Model;
 
-use Monitor\Configuration\ConfigurationLoader;
-use Monitor\Model\UrlInfo;
+use Hogosha\Monitor\Configuration\ConfigurationLoader;
+use Hogosha\Monitor\Model\UrlInfo;
 
 /**
  * @author Guillaume Cavana <guillaume.cavana@gmail.com>

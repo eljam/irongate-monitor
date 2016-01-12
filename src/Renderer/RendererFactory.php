@@ -1,10 +1,10 @@
 <?php
 
-namespace Monitor\Renderer;
+namespace Hogosha\Monitor\Renderer;
 
-use Monitor\Monitor;
-use Monitor\Renderer\RendererInterface;
-use Monitor\Renderer\TableRenderer;
+use Hogosha\Monitor\Monitor;
+use Hogosha\Monitor\Renderer\RendererInterface;
+use Hogosha\Monitor\Renderer\TableRenderer;
 use Webmozart\Console\Api\IO\IO;
 
 /**

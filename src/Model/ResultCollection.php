@@ -1,8 +1,8 @@
 <?php
 
-namespace Monitor\Model;
+namespace Hogosha\Monitor\Model;
 
-use Monitor\Model\Result;
+use Hogosha\Monitor\Model\Result;
 
 /**
  * @author Guillaume Cavana <guillaume.cavana@gmail.com>

@@ -1,6 +1,6 @@
 <?php
 
-namespace Monitor\Client;
+namespace Hogosha\Monitor\Client;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Handler\CurlMultiHandler;
@@ -12,13 +12,18 @@ class GuzzleClient
 {
     /**
      * createClient.
+     * @param array $options
      * @return Client
      */
-    public static function createClient()
+    public static function createClient($options = [])
     {
-        return new Client([
+        $defaults = [
             'handler' => new CurlMultiHandler(),
             'allow_redirects' => false,
-        ]);
+        ];
+
+        $options = array_merge($defaults, $options);
+
+        return new Client($options);
     }
 }

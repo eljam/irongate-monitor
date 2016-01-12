@@ -22,7 +22,7 @@ if (file_exists($autoload = __DIR__.'/../../../autoload.php')) {
 }
 
 use Webmozart\Console\ConsoleApplication;
-use Monitor\Console\MonitorApplicationConfig;
+use Hogosha\Monitor\Console\MonitorApplicationConfig;
 
 $cli = new ConsoleApplication(new MonitorApplicationConfig());
 $cli->run();

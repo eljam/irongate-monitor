@@ -1,9 +1,9 @@
 <?php
 
-namespace Monitor\Console\Handler;
+namespace Hogosha\Monitor\Console\Handler;
 
-use Monitor\Renderer\RendererFactory;
-use Monitor\Runner\Runner;
+use Hogosha\Monitor\Renderer\RendererFactory;
+use Hogosha\Monitor\Runner\Runner;
 use Webmozart\Console\Adapter\IOOutput;
 use Webmozart\Console\Api\Args\Args;
 use Webmozart\Console\Api\Command\Command;

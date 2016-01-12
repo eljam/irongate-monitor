@@ -1,6 +1,6 @@
 <?php
 
-namespace Monitor\Model;
+namespace Hogosha\Monitor\Model;
 
 /**
  * @author Guillaume Cavana <guillaume.cavana@gmail.com>
@@ -15,6 +15,7 @@ class Result
      * Constructor.
      * @param string $name
      * @param string $statusCode
+     * @param float  $responseTime
      */
     public function __construct($name, $statusCode, $responseTime)
     {

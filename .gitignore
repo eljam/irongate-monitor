@@ -1,3 +1,5 @@
-.irongate-monitor.yml
+.hogosha-monitor.yml
 composer.lock
 vendor/
+bin/phpunit
+bin/coveralls

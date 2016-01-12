@@ -1,15 +1,15 @@
 <?php
 
-namespace Monitor\Console;
+namespace Hogosha\Monitor\Console;
 
-use Monitor\Client\GuzzleClient;
-use Monitor\Configuration\ConfigurationDumper;
-use Monitor\Configuration\ConfigurationLoader;
-use Monitor\Console\Handler\InitHandler;
-use Monitor\Console\Handler\RunHandler;
-use Monitor\Model\UrlProvider;
-use Monitor\Monitor;
-use Monitor\Runner\Runner;
+use Hogosha\Monitor\Client\GuzzleClient;
+use Hogosha\Monitor\Configuration\ConfigurationDumper;
+use Hogosha\Monitor\Configuration\ConfigurationLoader;
+use Hogosha\Monitor\Console\Handler\InitHandler;
+use Hogosha\Monitor\Console\Handler\RunHandler;
+use Hogosha\Monitor\Model\UrlProvider;
+use Hogosha\Monitor\Monitor;
+use Hogosha\Monitor\Runner\Runner;
 use Webmozart\Console\Api\Args\Format\Option;
 use Webmozart\Console\Config\DefaultApplicationConfig;
 

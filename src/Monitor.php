@@ -1,6 +1,6 @@
 <?php
 
-namespace Monitor;
+namespace Hogosha\Monitor;
 
 /**
  * @author Guillaume Cavana <guillaume.cavana@gmail.com>
@@ -15,7 +15,7 @@ class Monitor
     /**
      * @const CONFIG_FILENAME Filename of the configuration file
      */
-    const CONFIG_FILENAME = '.irongate-monitor.yml';
+    const CONFIG_FILENAME = '.hogosha-monitor.yml';
 
     /**
      * @const RENDERER_TYPE_TABLE Table formatter

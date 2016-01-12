@@ -1,8 +1,8 @@
 <?php
 
-namespace Monitor\Configuration;
+namespace Hogosha\Monitor\Configuration;
 
-use Monitor\DependencyInjection\Exception\ConfigurationLoadingException;
+use Hogosha\Monitor\DependencyInjection\Exception\ConfigurationLoadingException;
 use Symfony\Component\Yaml\Yaml;
 
 /**

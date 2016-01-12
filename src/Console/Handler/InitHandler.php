@@ -1,10 +1,11 @@
 <?php
 
-namespace Monitor\Console\Handler;
+namespace Hogosha\Monitor\Console\Handler;
 
-use Monitor\Configuration\ConfigurationDumper;
-use Monitor\Configuration\ConfigurationLoader;
-use Monitor\DependencyInjection\Exception\ConfigurationLoadingException;
+use Hogosha\Monitor\Configuration\ConfigurationDumper;
+use Hogosha\Monitor\Configuration\ConfigurationLoader;
+use Hogosha\Monitor\DependencyInjection\Exception\ConfigurationLoadingException;
+use Symfony\Component\Filesystem\Filesystem;
 use Webmozart\Console\Api\Args\Args;
 use Webmozart\Console\Api\Command\Command;
 use Webmozart\Console\Api\IO\IO;
@@ -30,13 +31,16 @@ class InitHandler
      * Constructor.
      * @param ConfigurationLoader $configurationLoader
      * @param ConfigurationDumper $configurationDumper
+     * @param Filesystem          $filesystem
      */
     public function __construct(
         ConfigurationLoader $configurationLoader,
-        ConfigurationDumper $configurationDumper
+        ConfigurationDumper $configurationDumper,
+        Filesystem $filesystem
     ) {
         $this->configurationLoader = $configurationLoader;
         $this->configurationDumper = $configurationDumper;
+        $this->filesystem = $filesystem;
     }
 
     /**
@@ -75,8 +79,11 @@ class InitHandler
         // Dump configuration
         $content = $this->configurationDumper->dumpConfiguration($configuration);
 
-        file_put_contents($this->configurationLoader->getConfigurationFilepath(), $content);
+        $this->filesystem->dumpFile(
+            $this->configurationLoader->getConfigurationFilepath(),
+            $content
+        );
 
-        $io->writeline('<info>Creating monitor file</info>');
+        $io->writeLine('<info>Creating monitor file</info>');
     }
 }

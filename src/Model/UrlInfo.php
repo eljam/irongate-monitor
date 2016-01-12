@@ -1,6 +1,6 @@
 <?php
 
-namespace Monitor\Model;
+namespace Hogosha\Monitor\Model;
 
 /**
  * @author Guillaume Cavana <guillaume.cavana@gmail.com>
