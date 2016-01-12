@@ -2,9 +2,11 @@
 
 namespace Hogosha\Monitor\Console\Handler;
 
+use Hogosha\Monitor\Client\GuzzleClient;
+use Hogosha\Monitor\Configuration\ConfigurationLoader;
+use Hogosha\Monitor\Model\UrlProvider;
 use Hogosha\Monitor\Renderer\RendererFactory;
 use Hogosha\Monitor\Runner\Runner;
-use Webmozart\Console\Adapter\IOOutput;
 use Webmozart\Console\Api\Args\Args;
 use Webmozart\Console\Api\Command\Command;
 use Webmozart\Console\Api\IO\IO;
@@ -15,31 +17,38 @@ use Webmozart\Console\Api\IO\IO;
 class RunHandler
 {
     /**
-     * $runner.
-     * @var Runner
+     * $configurationLoader.
+     * @var ConfigurationLoader
      */
-    protected $runner;
+    protected $configurationLoader;
 
     /**
      * Constructor.
-     * @param Runner $runner
+     * @param ConfigurationLoader $configurationLoader
      */
-    public function __construct(Runner $runner)
+    public function __construct(ConfigurationLoader $configurationLoader)
     {
-        $this->runner = $runner;
+        $this->configurationLoader = $configurationLoader;
     }
 
     /**
      * handle.
-     * @param  Args    $args
-     * @param  IO      $io
-     * @param  Command $command
+     * @param  Args $args
+     * @param  IO   $io
+     *
      * @return string
      */
-    public function handle(Args $args, IO $io, Command $command)
+    public function handle(Args $args, IO $io)
     {
+        $this->configurationLoader->setRootDirectory($args->getOption('config'));
+
+        $runner = new Runner(
+            new UrlProvider($this->configurationLoader),
+            GuzzleClient::createClient()
+        );
+
         $renderer = RendererFactory::create($args->getOption('format'), $io);
-        $results = $this->runner->run();
+        $results = $runner->run();
         $renderer->render($results);
     }
 }

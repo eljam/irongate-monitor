@@ -3,7 +3,6 @@
 namespace Hogosha\Monitor\Renderer;
 
 use Hogosha\Monitor\Model\ResultCollection;
-use Webmozart\Console\Api\IO\IO;
 
 /**
  * @author Guillaume Cavana <guillaume.cavana@gmail.com>

@@ -57,15 +57,16 @@ class InitHandlerTest extends \PHPUnit_Framework_TestCase
         file_put_contents($this->file, $content);
 
         //Test if the enduser configuration is kept by the ConfigurationLoader
-        $configurationLoader =  new ConfigurationLoader(
-            sys_get_temp_dir(),
-            Monitor::CONFIG_FILENAME
-        );
+        $configurationLoader =  new ConfigurationLoader();
 
         $configurationDumper = new ConfigurationDumper();
         $filesystem = new Filesystem();
 
         $argsMock = $this->prophesize(Args::class);
+        $argsMock
+            ->getOption(Argument::type('string'))
+            ->willReturn(sys_get_temp_dir());
+
         $ioMock = $this->prophesize(IO::class);
         $ioMock
             ->writeLine(Argument::type('string'))
@@ -122,17 +123,16 @@ class InitHandlerTest extends \PHPUnit_Framework_TestCase
      */
     public function testDefaultConfigurationFile()
     {
-        $testFile = sys_get_temp_dir().DIRECTORY_SEPARATOR.'.test.yml';
+        $testFile = sys_get_temp_dir().DIRECTORY_SEPARATOR.Monitor::CONFIG_FILENAME;
 
-        $configurationLoader =  new ConfigurationLoader(
-            sys_get_temp_dir(),
-            '.test.yml'
-        );
-
+        $configurationLoader =  new ConfigurationLoader();
         $configurationDumper = new ConfigurationDumper();
         $filesystem = new Filesystem();
 
         $argsMock = $this->prophesize(Args::class);
+        $argsMock
+            ->getOption(Argument::type('string'))
+            ->willReturn(sys_get_temp_dir());
         $ioMock = $this->prophesize(IO::class);
         $ioMock
             ->writeLine(Argument::type('string'))

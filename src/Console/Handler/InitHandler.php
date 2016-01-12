@@ -45,13 +45,13 @@ class InitHandler
 
     /**
      * handle.
-     * @param  Args    $args
-     * @param  IO      $io
-     * @param  Command $command
+     * @param  Args $args
+     * @param  IO   $io
      * @return integer
      */
-    public function handle(Args $args, IO $io, Command $command)
+    public function handle(Args $args, IO $io)
     {
+        $this->configurationLoader->setRootDirectory($args->getOption('config'));
         try {
             $configuration = $this->configurationLoader->loadConfiguration();
         } catch (ConfigurationLoadingException $e) {
@@ -74,16 +74,20 @@ class InitHandler
                     ],
                 ],
             ];
+            // Dump configuration
+            $content = $this->configurationDumper->dumpConfiguration($configuration);
+            $this->filesystem->dumpFile(
+                $this->configurationLoader->getConfigurationFilepath(),
+                $content
+            );
+            $io->writeLine('<info>Creating monitor file</info>');
         }
 
-        // Dump configuration
-        $content = $this->configurationDumper->dumpConfiguration($configuration);
-
-        $this->filesystem->dumpFile(
-            $this->configurationLoader->getConfigurationFilepath(),
-            $content
+        $io->writeLine(
+            sprintf(
+                '<info>You already have a configuration file in</info> "%s"',
+                $this->configurationLoader->getConfigurationFilepath()
+            )
         );
-
-        $io->writeLine('<info>Creating monitor file</info>');
     }
 }

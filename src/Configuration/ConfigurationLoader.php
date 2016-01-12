@@ -3,6 +3,7 @@
 namespace Hogosha\Monitor\Configuration;
 
 use Hogosha\Monitor\DependencyInjection\Exception\ConfigurationLoadingException;
+use Hogosha\Monitor\Monitor;
 use Symfony\Component\Yaml\Yaml;
 
 /**
@@ -35,8 +36,10 @@ class ConfigurationLoader
      * @param string $rootDirectory Directory containing the config file
      * @param string $filename      Configuration file name
      */
-    public function __construct($rootDirectory, $filename)
-    {
+    public function __construct(
+        $rootDirectory = null,
+        $filename = Monitor::CONFIG_FILENAME
+    ) {
         $this->rootDirectory = $rootDirectory;
         $this->filename = $filename;
     }
