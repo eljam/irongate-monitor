@@ -3,6 +3,7 @@
 namespace Hogosha\Monitor\Renderer;
 
 use Hogosha\Monitor\Monitor;
+use Hogosha\Monitor\Renderer\CsvRenderer;
 use Webmozart\Console\Api\IO\IO;
 
 /**
@@ -23,7 +24,7 @@ class RendererFactory
         if ($type == Monitor::RENDERER_TYPE_TABLE) {
             return new TableRenderer($io);
         } else {
-            return new ListRenderer($io);
+            return new CsvRenderer($io);
         }
     }
 }
