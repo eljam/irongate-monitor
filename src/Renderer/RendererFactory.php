@@ -3,7 +3,6 @@
 namespace Hogosha\Monitor\Renderer;
 
 use Hogosha\Monitor\Monitor;
-use Hogosha\Monitor\Renderer\CsvRenderer;
 use Webmozart\Console\Api\IO\IO;
 
 /**

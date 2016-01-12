@@ -4,9 +4,6 @@ namespace Hogosha\Monitor\Renderer;
 
 use Hogosha\Monitor\Model\Result;
 use Hogosha\Monitor\Model\ResultCollection;
-use Hogosha\Monitor\Renderer\RendererFactory;
-use Hogosha\Monitor\Renderer\RendererInterface;
-use Hogosha\Monitor\Renderer\CsvRenderer;
 use Webmozart\Console\Api\IO\IO;
 use Webmozart\Console\IO\BufferedIO;
 
@@ -15,7 +12,6 @@ use Webmozart\Console\IO\BufferedIO;
  */
 class CsvRendererTest extends \PHPUnit_Framework_TestCase
 {
-
     /**
      * @var BufferedIO
      */
@@ -28,7 +24,6 @@ class CsvRendererTest extends \PHPUnit_Framework_TestCase
 
     /**
      * testTableRenderer.
-     * @return void
      */
     public function testTableRenderer()
     {
@@ -47,7 +42,6 @@ TABLE;
 
     /**
      * createResultCollection.
-     * @return void
      */
     public function createResultCollection()
     {
