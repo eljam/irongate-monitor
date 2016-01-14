@@ -12,7 +12,7 @@ use Webmozart\Console\Api\Args\Format\Option;
 use Webmozart\Console\Config\DefaultApplicationConfig;
 
 /**
- * @author Guillaume Cavana <guillaume.cavana@gmai.com>
+ * @author Guillaume Cavana <guillaume.cavana@gmail.com>
  */
 class MonitorApplicationConfig extends DefaultApplicationConfig
 {
