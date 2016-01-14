@@ -55,29 +55,23 @@ class InitHandler
      */
     public function handle(Args $args, IO $io)
     {
-        $this->configurationLoader->setRootDirectory($args->getOption('config'));
+        $configFileExist = true;
+
         try {
+            $this->configurationLoader->setRootDirectory($args->getOption('config'));
             $configuration = $this->configurationLoader->loadConfiguration();
         } catch (ConfigurationLoadingException $e) {
+            $configFileExist = false;
             $configuration = [
-                'server' => [
-                    'hostname' => null,
-                    'port' => null,
-                    'use_ssl' => null,
-                    'auth' => [
-                        'username' => null,
-                        'password' => null,
-                    ],
-                ],
                 'urls' => [
                     'google' => [
                         'url' => 'https://www.google.fr',
                         'timeout' => 1,
                         'status_code' => 200,
-                        'service_uid' => '',
                     ],
                 ],
             ];
+
             // Dump configuration
             $content = $this->configurationDumper->dumpConfiguration($configuration);
             $this->filesystem->dumpFile(
@@ -87,11 +81,13 @@ class InitHandler
             $io->writeLine('<info>Creating monitor file</info>');
         }
 
-        $io->writeLine(
-            sprintf(
-                '<info>You already have a configuration file in</info> "%s"',
-                $this->configurationLoader->getConfigurationFilepath()
-            )
-        );
+        if ($configFileExist) {
+            $io->writeLine(
+                sprintf(
+                    '<info>You already have a configuration file in</info> "%s"',
+                    $this->configurationLoader->getConfigurationFilepath()
+                )
+            );
+        }
     }
 }

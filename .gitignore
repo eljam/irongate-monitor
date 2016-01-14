@@ -1,6 +1,8 @@
 .hogosha-monitor.yml
 composer.lock
+composer.phar
 vendor/
-bin/phpunit
-bin/coveralls
+bin/*
+!bin/monitor
+!bin/compile
 .php_cs.cache

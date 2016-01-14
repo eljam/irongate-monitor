@@ -11,14 +11,17 @@
  *
  */
 
-if (PHP_SAPI !== 'cli') {
-    echo 'Warning: Monitor should be invoked via the CLI version of PHP, not the '.PHP_SAPI.' SAPI'.PHP_EOL;
-}
-
 require_once __DIR__.'/../src/bootstrap.php';
 
-use Hogosha\Monitor\Console\MonitorApplicationConfig;
-use Webmozart\Console\ConsoleApplication;
+use Hogosha\Monitor\Compiler\Compiler;
 
-$cli = new ConsoleApplication(new MonitorApplicationConfig());
-$cli->run();
+error_reporting(-1);
+ini_set('display_errors', 1);
+
+try {
+    $compiler = new Compiler();
+    $compiler->compile();
+} catch (\Exception $e) {
+    echo 'Failed to compile phar: ['.get_class($e).'] '.$e->getMessage().' at '.$e->getFile().':'.$e->getLine();
+    exit(1);
+}

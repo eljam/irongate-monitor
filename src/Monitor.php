@@ -10,7 +10,7 @@ class Monitor
     /**
      * @const VERSION Version of the application
      */
-    const VERSION = '0.1-DEV';
+    const VERSION = '@package_version@';
 
     /**
      * @const CONFIG_FILENAME Filename of the configuration file

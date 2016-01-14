@@ -15,7 +15,8 @@
         "webmozart/console": "~1.0@beta",
         "guzzlehttp/guzzle": "^6.1",
         "symfony/filesystem": "^3.0",
-        "satooshi/php-coveralls": "^1.0"
+        "satooshi/php-coveralls": "^1.0",
+        "symfony/finder": "^3.0"
     },
     "autoload" : {
         "psr-4" : {
@@ -27,5 +28,10 @@
     },
     "config": {
         "bin-dir": "bin/"
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "0.1-dev"
+        }
     }
 }

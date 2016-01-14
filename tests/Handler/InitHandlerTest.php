@@ -28,21 +28,11 @@ class InitHandlerTest extends \PHPUnit_Framework_TestCase
 
         // Dump the configuration set by the enduser
         $configuration = [
-            'server' => [
-                'hostname' => null,
-                'port' => null,
-                'use_ssl' => null,
-                'auth' => [
-                    'username' => null,
-                    'password' => null,
-                ],
-            ],
             'urls' => [
                 'example.com' => [
                     'url' => 'https://www.example.com',
                     'timeout' => 1,
                     'status_code' => 200,
-                    'service_uid' => '',
                 ],
             ],
         ];
@@ -92,21 +82,11 @@ class InitHandlerTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals(
             [
-                'server' => [
-                    'hostname' => null,
-                    'port' => null,
-                    'use_ssl' => null,
-                    'auth' => [
-                        'username' => null,
-                        'password' => null,
-                    ],
-                ],
                 'urls' => [
                     'example.com' => [
                         'url' => 'https://www.example.com',
                         'timeout' => 1,
                         'status_code' => 200,
-                        'service_uid' => '',
                     ],
                 ],
             ],
@@ -158,21 +138,11 @@ class InitHandlerTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals(
             [
-                'server' => [
-                    'hostname' => null,
-                    'port' => null,
-                    'use_ssl' => null,
-                    'auth' => [
-                        'username' => null,
-                        'password' => null,
-                    ],
-                ],
                 'urls' => [
                     'google' => [
                         'url' => 'https://www.google.fr',
                         'timeout' => 1,
                         'status_code' => 200,
-                        'service_uid' => '',
                     ],
                 ],
             ],
