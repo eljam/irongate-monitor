@@ -29,18 +29,16 @@ class MonitorApplicationConfig extends DefaultApplicationConfig
         $filesystem = new Filesystem();
 
         $signature = <<<SIGNATURE
-  _____                             _
- |_   _|                           | |
-   | |  _ __ ___  _ __   __ _  __ _| |_ ___
-   | | | '__/ _ \| '_ \ / _` |/ _` | __/ _ \
-  _| |_| | | (_) | | | | (_| | (_| | ||  __/
- |_____|_|  \___/|_| |_|\__, |\__,_|\__\___|
-                         __/ |
-                        |___/
+  _   _   ___    ____   ___   ____   _   _     _
+ | | | | / _ \  / ___| / _ \ / ___| | | | |   / \
+ | |_| || | | || |  _ | | | |\___ \ | |_| |  / _ \
+ |  _  || |_| || |_| || |_| | ___) ||  _  | / ___ \
+ |_| |_| \___/  \____| \___/ |____/ |_| |_|/_/   \_\
+
 SIGNATURE;
 
         $this
-            ->setDisplayName($signature."\n".'Irongate Monitor Application')
+            ->setDisplayName($signature."\n".'Hogosha Monitoring Tool')
             ->setName('monitor')
             ->setVersion(Monitor::VERSION)
                 ->addOption('config', 'c', Option::OPTIONAL_VALUE, 'Config file path', rtrim(getcwd(), DIRECTORY_SEPARATOR))
