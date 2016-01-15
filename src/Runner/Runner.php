@@ -70,7 +70,12 @@ class Runner
     {
         $resultCollection = new ResultCollection();
         foreach ($results as $name => $result) {
-            $resultCollection->append((new Result($name, $result->getStatusCode(), $stats[$name]['total_time'])));
+            $resultCollection->append((new Result(
+                $name,
+                $result->getStatusCode(),
+                $stats[$name]['total_time'],
+                $this->urlProvider->getUrls()[$name]->getExpectedStatus()
+            )));
         }
 
         return $resultCollection;

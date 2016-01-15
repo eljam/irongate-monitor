@@ -55,7 +55,7 @@ SIGNATURE;
                         return new RunHandler($configurationLoader);
                     })
                     ->setHelp('php <info>bin/monitor</info> init')
-                    ->addOption('format', 'f', Option::OPTIONAL_VALUE, 'The formatter', 'table')
+                    ->addOption('format', 'f', Option::OPTIONAL_VALUE, 'The formatter', 'list')
                 ->end()
         ;
     }

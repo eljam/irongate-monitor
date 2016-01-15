@@ -27,12 +27,12 @@ class CsvRendererTest extends \PHPUnit_Framework_TestCase
      */
     public function testTableRenderer()
     {
-        $renderer = RendererFactory::create('list', $this->io);
+        $renderer = RendererFactory::create('csv', $this->io);
         $renderer->render($this->createResultCollection());
 
         $output = <<<TABLE
-Name,Status,"Reponse Time"
-Example,200,0.42
+"Global Status","Status Code",Name,"Reponse Time"
+OK,200,Example,0.42
 
 TABLE;
 
@@ -45,7 +45,7 @@ TABLE;
      */
     public function createResultCollection()
     {
-        $result = new Result('Example', 200, 0.42);
+        $result = new Result('Example', 200, 0.42, 200);
 
         $resultCollection = new ResultCollection();
         $resultCollection->append($result);

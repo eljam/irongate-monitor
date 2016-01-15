@@ -8,7 +8,7 @@ use Webmozart\Console\Api\IO\IO;
 /**
  * @author Guillaume Cavana <guillaume.cavana@gmail.com>
  */
-class CsvRenderer implements RendererInterface
+class ListRenderer implements RendererInterface
 {
     protected $io;
 
@@ -27,30 +27,18 @@ class CsvRenderer implements RendererInterface
      */
     public function render(ResultCollection $resultCollection)
     {
-        $stream = fopen('php://temp', 'w');
-        fputcsv(
-            $stream,
-            [
-                'Global Status',
-                'Status Code',
-                'Name',
-                'Reponse Time',
-            ]
-        );
+        $format = "[%s][%s] %s - %s";
 
         foreach ($resultCollection as $result) {
-            fputcsv(
-                $stream,
-                [
+            $this->io->write(
+                sprintf(
+                    $format,
                     $result->getExpectedStatus() != $result->getStatusCode() ? 'FAIL' : 'OK',
                     $result->getStatusCode(),
                     $result->getName(),
-                    $result->getReponseTime(),
-                ]
+                    $result->getReponseTime()
+                )."\n"
             );
         }
-        rewind($stream);
-        $this->io->write(stream_get_contents($stream));
-        fclose($stream);
     }
 }

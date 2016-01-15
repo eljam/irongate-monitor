@@ -10,6 +10,7 @@ class UrlInfo
     protected $name;
     protected $url;
     protected $timeout;
+    protected $expectedStatus;
 
     /**
      * Constructor.
@@ -17,12 +18,14 @@ class UrlInfo
      * @param string $name
      * @param string $url
      * @param int    $timeout
+     * @param int    $expectedStatus
      */
-    public function __construct($name, $url, $timeout)
+    public function __construct($name, $url, $timeout, $expectedStatus)
     {
         $this->name = $name;
         $this->url = $url;
         $this->timeout = $timeout;
+        $this->expectedStatus = $expectedStatus;
     }
 
     /**
@@ -53,5 +56,15 @@ class UrlInfo
     public function getTimeOut()
     {
         return $this->timeout;
+    }
+
+    /**
+     * getTimeOut.
+     *
+     * @return int
+     */
+    public function getExpectedStatus()
+    {
+        return $this->expectedStatus;
     }
 }

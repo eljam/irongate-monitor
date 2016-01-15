@@ -28,15 +28,6 @@ class RunnerTest extends \PHPUnit_Framework_TestCase
         ->shouldBeCalled()
         ->willReturn(
             [
-                'server' => [
-                    'hostname' => null,
-                    'port' => null,
-                    'use_ssl' => null,
-                    'auth' => [
-                        'username' => null,
-                        'password' => null,
-                    ],
-                ],
                 'urls' => [
                     'google' => [
                         'url' => 'https://www.google.fr',
@@ -55,10 +46,10 @@ class RunnerTest extends \PHPUnit_Framework_TestCase
         $resultCollection = $runner->run();
 
         $this->assertCount(1, $urlProvider->getUrls());
-        $this->assertInstanceOf(UrlInfo::class, $urlProvider->getUrls()[0]);
+        $this->assertInstanceOf(UrlInfo::class, $urlProvider->getUrls()['google']);
         $this->assertInstanceOf(ResultCollection::class, $resultCollection);
         $this->assertInstanceOf(Result::class, $resultCollection[0]);
-        $this->assertEquals((new Result('google', 200, 0)), $resultCollection[0]);
+        $this->assertEquals((new Result('google', 200, 0, 200)), $resultCollection[0]);
     }
 
     /**

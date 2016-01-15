@@ -30,12 +30,18 @@ class TableRenderer implements RendererInterface
     {
         $table = new Table();
         $table
-            ->setHeaderRow(['Name', 'Status', 'Response Time']);
+            ->setHeaderRow(['Global Status', 'Status Code', 'Name', 'Response Time']);
 
         foreach ($resultCollection as $result) {
+            $color = $result->getExpectedStatus() != $result->getStatusCode() ? 'red' : 'green';
             $table->addRow([
+                $result->getExpectedStatus() != $result->getStatusCode() ? 'FAIL' : 'OK',
+                sprintf(
+                    '<bg=%s>%s</>',
+                    $color,
+                    $result->getStatusCode()
+                ),
                 $result->getName(),
-                sprintf('<fg=green>%s</fg=green>', $result->getStatusCode()),
                 $result->getReponseTime(),
             ]);
         }

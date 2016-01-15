@@ -1,6 +1,6 @@
-# hogosha-monitor
+# Hogosha Monitor
 
-Monitoring tool for [hogosha service](https://github.com/hogosha/hogosha) that can be used as a standalone tool as a simple ping program.
+Monitoring tool for [Hogosha Service](https://github.com/hogosha/hogosha) that can be used as a standalone tool as a simple ping program.
 
 **Currently in development.**
 
@@ -20,7 +20,7 @@ composer global require hogosha/monitor
 If it is the first time you globally install a dependency then make sure
 you include `~/.composer/vendor/bin` in $PATH as shown [here](http://getcomposer.org/doc/03-cli.md#global).
 
-Keep Monitor up-to-date
+Keep Hogosha Monitor up-to-date
 
 ```bash
 composer global update hogosha/monitor
@@ -80,14 +80,27 @@ Then run the tool
 hogosha-monitor run -c $HOME
 ```
 
-**Output**
+**Output - List**
 
 ```bash
-+--------+--------+---------------+
-| Name   | Status | Response Time |
-+--------+--------+---------------+
-| google | 200    | 0.356444      |
-+--------+--------+---------------+
+[OK][200] google - 0.267724
+```
+
+**Output - Table**
+
+```bash
++---------------+-------------+---------+---------------+
+| Global Status | Status Code | Name    | Response Time |
++---------------+-------------+---------+---------------+
+| OK            | 200         | Google  | 0.42          |
++---------------+-------------+---------+---------------+
+```
+
+**Output - Csv**
+
+```bash
+"Global Status","Status Code",Name,"Reponse Time"
+OK,200,google,0.42
 ```
 
 ## Contributing

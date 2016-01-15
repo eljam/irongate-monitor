@@ -10,7 +10,7 @@ use Webmozart\Console\IO\BufferedIO;
 /**
  * @author Guillaume Cavana <guillaume.cavana@gmail.com>
  */
-class TableRendererTest extends \PHPUnit_Framework_TestCase
+class ListRendererTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @var BufferedIO
@@ -25,19 +25,16 @@ class TableRendererTest extends \PHPUnit_Framework_TestCase
     /**
      * testTableRenderer.
      */
-    public function testTableRenderer()
+    public function testListRenderer()
     {
-        $renderer = RendererFactory::create('table', $this->io);
+        $renderer = RendererFactory::create('list', $this->io);
         $renderer->render($this->createResultCollection());
 
         $output = <<<TABLE
-+---------------+-------------+---------+---------------+
-| Global Status | Status Code | Name    | Response Time |
-+---------------+-------------+---------+---------------+
-| FAIL          | 200         | Example | 0.42          |
-+---------------+-------------+---------+---------------+
+[FAIL][200] Example - 0.42
 
 TABLE;
+
         $this->assertInstanceOf(RendererInterface::class, $renderer);
         $this->assertSame($output, $this->io->fetchOutput());
     }

@@ -20,10 +20,16 @@ class RendererFactory
      */
     public static function create($type, IO $io)
     {
-        if ($type == Monitor::RENDERER_TYPE_TABLE) {
-            return new TableRenderer($io);
-        } else {
-            return new CsvRenderer($io);
+        switch ($type) {
+            case Monitor::RENDERER_TYPE_TABLE:
+                return new TableRenderer($io);
+                break;
+            case Monitor::RENDERER_TYPE_CSV:
+                return new CsvRenderer($io);
+                break;
+            default:
+                return new ListRenderer($io);
+                break;
         }
     }
 }

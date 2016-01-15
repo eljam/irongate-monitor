@@ -23,7 +23,7 @@ class Monitor
     const RENDERER_TYPE_TABLE = 'table';
 
     /**
-     * @const RENDERER_TYPE_LIST List formatter
+     * @const RENDERER_TYPE_CSV Csv formatter
      */
-    const RENDERER_TYPE_LIST = 'list';
+    const RENDERER_TYPE_CSV = 'csv';
 }

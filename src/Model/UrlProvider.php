@@ -35,10 +35,11 @@ class UrlProvider
     {
         $config = $this->configurationLoader->loadConfiguration();
         foreach ($config['urls'] as $name => $attribute) {
-            $urls[] = new UrlInfo(
+            $urls[$name] = new UrlInfo(
                 $name,
                 $attribute['url'],
-                $attribute['timeout']
+                $attribute['timeout'],
+                $attribute['status_code']
             );
         }
 
