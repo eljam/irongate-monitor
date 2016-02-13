@@ -4,6 +4,7 @@ namespace Hogosha\Monitor\Runner;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Promise;
+use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\TransferStats;
 use Hogosha\Monitor\Client\GuzzleClient;
 use Hogosha\Monitor\Model\Result;
@@ -42,8 +43,8 @@ class Runner
 
         $stats = [];
         foreach ($this->urlProvider->getUrls() as $url) {
-            $promises[$url->getName()] = $this->client->getAsync(
-                $url->getUrl(),
+            $promises[$url->getName()] = $this->client->sendAsync(
+                new Request($url->getMethod(), $url->getUrl(), $url->getHeaders()),
                 [
                     'timeout' => $url->getTimeout(),
                     'on_stats' => function (TransferStats $tranferStats) use (&$stats, $url) {

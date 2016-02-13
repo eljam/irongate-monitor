@@ -5,6 +5,7 @@ namespace Hogosha\Monitor\Console\Handler;
 use Hogosha\Monitor\Configuration\ConfigurationDumper;
 use Hogosha\Monitor\Configuration\ConfigurationLoader;
 use Hogosha\Monitor\DependencyInjection\Exception\ConfigurationLoadingException;
+use Hogosha\Monitor\Monitor;
 use Symfony\Component\Filesystem\Filesystem;
 use Webmozart\Console\Api\Args\Args;
 use Webmozart\Console\Api\IO\IO;
@@ -56,16 +57,22 @@ class InitHandler
     public function handle(Args $args, IO $io)
     {
         $configFileExist = true;
+        $overwrite = is_string($args->getOption('force'));
 
         try {
             $this->configurationLoader->setRootDirectory($args->getOption('config'));
             $configuration = $this->configurationLoader->loadConfiguration();
         } catch (ConfigurationLoadingException $e) {
             $configFileExist = false;
+        }
+
+        if (!$configFileExist || $overwrite) {
             $configuration = [
                 'urls' => [
                     'google' => [
                         'url' => 'https://www.google.fr',
+                        'method' => 'GET',
+                        'headers' => [],
                         'timeout' => 1,
                         'status_code' => 200,
                     ],
@@ -79,9 +86,7 @@ class InitHandler
                 $content
             );
             $io->writeLine('<info>Creating monitor file</info>');
-        }
-
-        if ($configFileExist) {
+        } else {
             $io->writeLine(
                 sprintf(
                     '<info>You already have a configuration file in</info> "%s"',

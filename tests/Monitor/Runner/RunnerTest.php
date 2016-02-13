@@ -31,9 +31,10 @@ class RunnerTest extends \PHPUnit_Framework_TestCase
                 'urls' => [
                     'google' => [
                         'url' => 'https://www.google.fr',
+                        'method' => 'GET',
+                        'headers' => [],
                         'timeout' => 1,
                         'status_code' => 200,
-                        'service_uid' => '',
                     ],
                 ],
             ]

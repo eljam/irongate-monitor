@@ -24,13 +24,15 @@ class InitHandlerTest extends \PHPUnit_Framework_TestCase
      */
     public function testExistingConfigurationFile()
     {
-        $this->file = sys_get_temp_dir().DIRECTORY_SEPARATOR.Monitor::CONFIG_FILENAME;
+        $file = sys_get_temp_dir().DIRECTORY_SEPARATOR.Monitor::CONFIG_FILENAME;
 
         // Dump the configuration set by the enduser
         $configuration = [
             'urls' => [
                 'example.com' => [
                     'url' => 'https://www.example.com',
+                    'method' => 'GET',
+                    'headers' => [],
                     'timeout' => 1,
                     'status_code' => 200,
                 ],
@@ -42,7 +44,7 @@ class InitHandlerTest extends \PHPUnit_Framework_TestCase
             $content .= Yaml::dump([$name => $section], 4).PHP_EOL;
         }
 
-        file_put_contents($this->file, $content);
+        file_put_contents($file, $content);
 
         //Test if the enduser configuration is kept by the ConfigurationLoader
         $configurationLoader = new ConfigurationLoader();
@@ -52,8 +54,11 @@ class InitHandlerTest extends \PHPUnit_Framework_TestCase
 
         $argsMock = $this->prophesize(Args::class);
         $argsMock
-            ->getOption(Argument::type('string'))
+            ->getOption('config')
             ->willReturn(sys_get_temp_dir());
+        $argsMock
+            ->getOption('force')
+            ->willReturn(null);
 
         $ioMock = $this->prophesize(IO::class);
         $ioMock
@@ -76,7 +81,7 @@ class InitHandlerTest extends \PHPUnit_Framework_TestCase
 
         // Test the configuration of the enduser file
         $this->assertEquals(
-            $this->file,
+            $file,
             $configurationLoader->getConfigurationFilepath()
         );
 
@@ -85,15 +90,17 @@ class InitHandlerTest extends \PHPUnit_Framework_TestCase
                 'urls' => [
                     'example.com' => [
                         'url' => 'https://www.example.com',
+                        'method' => 'GET',
+                        'headers' => [],
                         'timeout' => 1,
                         'status_code' => 200,
                     ],
                 ],
             ],
-            Yaml::parse(file_get_contents($this->file))
+            Yaml::parse(file_get_contents($file))
         );
 
-        unlink($this->file);
+        unlink($file);
     }
 
     /**
@@ -141,6 +148,8 @@ class InitHandlerTest extends \PHPUnit_Framework_TestCase
                 'urls' => [
                     'google' => [
                         'url' => 'https://www.google.fr',
+                        'method' => 'GET',
+                        'headers' => [],
                         'timeout' => 1,
                         'status_code' => 200,
                     ],

@@ -9,6 +9,8 @@ class UrlInfo
 {
     protected $name;
     protected $url;
+    protected $method;
+    protected $headers;
     protected $timeout;
     protected $expectedStatus;
 
@@ -17,13 +19,23 @@ class UrlInfo
      *
      * @param string $name
      * @param string $url
+     * @param string $method
+     * @param array  $headers
      * @param int    $timeout
      * @param int    $expectedStatus
      */
-    public function __construct($name, $url, $timeout, $expectedStatus)
-    {
+    public function __construct(
+        $name,
+        $url,
+        $method,
+        array $headers,
+        $timeout,
+        $expectedStatus
+    ) {
         $this->name = $name;
         $this->url = $url;
+        $this->method = $method;
+        $this->headers = $headers;
         $this->timeout = $timeout;
         $this->expectedStatus = $expectedStatus;
     }
@@ -46,6 +58,26 @@ class UrlInfo
     public function getUrl()
     {
         return $this->url;
+    }
+
+    /**
+     * getMethod.
+     *
+     * @return string
+     */
+    public function getMethod()
+    {
+        return $this->method;
+    }
+
+    /**
+     * getHeaders.
+     *
+     * @return string
+     */
+    public function getHeaders()
+    {
+        return $this->headers;
     }
 
     /**

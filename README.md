@@ -70,6 +70,8 @@ This will create an yml file with this configuration:
 urls:
     google:
         url: 'https://www.google.fr'
+        method: GET
+        headers: { Accept: text/html }
         timeout: 1
         status_code: 200 #status expected
 ```

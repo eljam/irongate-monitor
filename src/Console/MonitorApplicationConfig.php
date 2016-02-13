@@ -48,13 +48,14 @@ SIGNATURE;
                         return new InitHandler($configurationLoader, $configurationDumper, $filesystem);
                     })
                     ->setHelp('php <info>bin/monitor</info> init')
+                    ->addOption('force', 'f', Option::OPTIONAL_VALUE, 'Overwrite the config file')
                 ->end()
                 ->beginCommand('run')
                     ->setDescription('Launch the monitor process')
                     ->setHandler(function () use ($configurationLoader) {
                         return new RunHandler($configurationLoader);
                     })
-                    ->setHelp('php <info>bin/monitor</info> init')
+                    ->setHelp('php <info>bin/monitor</info> run')
                     ->addOption('format', 'f', Option::OPTIONAL_VALUE, 'The formatter', 'list')
                 ->end()
         ;
