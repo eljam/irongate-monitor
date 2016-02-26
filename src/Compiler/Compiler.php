@@ -1,12 +1,24 @@
 <?php
 
+/*
+ * This file is part of the hogosha-monitor package
+ *
+ * Copyright (c) 2016 Guillaume Cavana
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ *
+ * Feel free to edit as you please, and have fun.
+ *
+ * @author Guillaume Cavana <guillaume.cavana@gmail.com>
+ */
+
 namespace Hogosha\Monitor\Compiler;
 
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\Process\Process;
 
 /**
- *
  * @author Guillaume Cavana <guillaume.cavana@gmail.com>
  */
 class Compiler
@@ -15,7 +27,6 @@ class Compiler
 
     /**
      * Compile.
-     *
      */
     public function compile()
     {
@@ -124,7 +135,6 @@ class Compiler
         return $output;
     }
 
-
     protected function getStub()
     {
         return <<<'EOF'
@@ -146,9 +156,8 @@ __HALT_COMPILER();
 EOF;
     }
 
-
     /**
-     * Load versions
+     * Load versions.
      */
     private function loadVersion()
     {

@@ -105,6 +105,25 @@ hogosha-monitor run -c $HOME
 OK,200,google,0.42
 ```
 
+## Connect to hogosha portal
+Once you have configured the hogosha portal, you need to add this configuration in your yaml
+
+```yaml
+urls:
+    google:
+        url: 'https://www.google.fr'
+        method: GET
+        headers: { Accept: text/html }
+        timeout: 1
+        status_code: 200 #status expected
+        metric_uuid: ec9e5ba7-9136-4b67-b049-a969e8e6dcde # Metric uuid you can find in the hogosha portal
+
+hogosha:
+  username: admin
+  password: admin
+  base_uri: http://localhost:8000/api/ #url api        
+```
+
 ## Contributing
 
 1. Fork it!
@@ -114,8 +133,9 @@ OK,200,google,0.42
 5. Submit a pull request :D
 
 ## TODO
-- [ ] Connnect to the hogosha portal
-- [ ] Collect metric to the hogosha portal metric system
+- [x] Connnect to the hogosha portal
+- [x] Collect metric to the hogosha portal metric system
+- [ ] Refacto
 
 ## Credits
 

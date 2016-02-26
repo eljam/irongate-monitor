@@ -1,5 +1,18 @@
 <?php
 
+/*
+ * This file is part of the hogosha-monitor package
+ *
+ * Copyright (c) 2016 Guillaume Cavana
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ *
+ * Feel free to edit as you please, and have fun.
+ *
+ * @author Guillaume Cavana <guillaume.cavana@gmail.com>
+ */
+
 namespace Hogosha\Monitor\Model;
 
 /**
@@ -13,6 +26,7 @@ class UrlInfo
     protected $headers;
     protected $timeout;
     protected $expectedStatus;
+    protected $metricUuid;
 
     /**
      * Constructor.
@@ -23,6 +37,7 @@ class UrlInfo
      * @param array  $headers
      * @param int    $timeout
      * @param int    $expectedStatus
+     * @param string $metricUuid
      */
     public function __construct(
         $name,
@@ -30,7 +45,8 @@ class UrlInfo
         $method,
         array $headers,
         $timeout,
-        $expectedStatus
+        $expectedStatus,
+        $metricUuid
     ) {
         $this->name = $name;
         $this->url = $url;
@@ -38,6 +54,7 @@ class UrlInfo
         $this->headers = $headers;
         $this->timeout = $timeout;
         $this->expectedStatus = $expectedStatus;
+        $this->metricUuid = $metricUuid;
     }
 
     /**
@@ -98,5 +115,15 @@ class UrlInfo
     public function getExpectedStatus()
     {
         return $this->expectedStatus;
+    }
+
+    /**
+     * getMetricUuid.
+     *
+     * @return string
+     */
+    public function getMetricUuid()
+    {
+        return $this->metricUuid;
     }
 }

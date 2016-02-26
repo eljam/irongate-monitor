@@ -17,7 +17,8 @@
         "symfony/filesystem": "^3.0",
         "satooshi/php-coveralls": "^1.0",
         "symfony/finder": "^3.0",
-        "symfony/options-resolver": "^3.0"
+        "symfony/options-resolver": "^3.0",
+        "hogosha/sdk": "dev-master"
     },
     "autoload" : {
         "psr-4" : {
@@ -25,7 +26,8 @@
         }
     },
     "require-dev": {
-        "phpunit/phpunit": "^4.8"
+        "phpunit/phpunit": "^4.8",
+        "mmoreram/php-formatter": "^1.1"
     },
     "config": {
         "bin-dir": "bin/"
