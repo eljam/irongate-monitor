@@ -27,6 +27,7 @@ class UrlInfo
     protected $timeout;
     protected $expectedStatus;
     protected $metricUuid;
+    protected $serviceUuid;
 
     /**
      * Constructor.
@@ -38,6 +39,7 @@ class UrlInfo
      * @param int    $timeout
      * @param int    $expectedStatus
      * @param string $metricUuid
+     * @param string $serviceUuid
      */
     public function __construct(
         $name,
@@ -46,7 +48,8 @@ class UrlInfo
         array $headers,
         $timeout,
         $expectedStatus,
-        $metricUuid
+        $metricUuid,
+        $serviceUuid
     ) {
         $this->name = $name;
         $this->url = $url;
@@ -55,6 +58,7 @@ class UrlInfo
         $this->timeout = $timeout;
         $this->expectedStatus = $expectedStatus;
         $this->metricUuid = $metricUuid;
+        $this->serviceUuid = $serviceUuid;
     }
 
     /**
@@ -125,5 +129,15 @@ class UrlInfo
     public function getMetricUuid()
     {
         return $this->metricUuid;
+    }
+
+    /**
+     * getServiceUuid.
+     *
+     * @return string
+     */
+    public function getServiceUuid()
+    {
+        return $this->serviceUuid;
     }
 }

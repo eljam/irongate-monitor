@@ -22,25 +22,17 @@ class RunnerTest extends \PHPUnit_Framework_TestCase
      */
     public function testRunner()
     {
-        $configurationLoaderMock = $this->prophesize(ConfigurationLoader::class);
-        $configurationLoaderMock
-        ->loadConfiguration()
-        ->shouldBeCalled()
-        ->willReturn(
-            [
-                'urls' => [
-                    'google' => [
-                        'url' => 'https://www.google.fr',
-                        'method' => 'GET',
-                        'headers' => [],
-                        'timeout' => 1,
-                        'status_code' => 200,
-                    ],
+        $urlProvider = new UrlProvider([
+            'urls' => [
+                'google' => [
+                    'url' => 'https://www.google.fr',
+                    'method' => 'GET',
+                    'headers' => [],
+                    'timeout' => 1,
+                    'status_code' => 200,
                 ],
-            ]
-        );
-
-        $urlProvider = new UrlProvider($configurationLoaderMock->reveal());
+            ],
+        ]);
 
         $client = GuzzleClient::createClient(['handler' => $this->mockClient()]);
         $runner = new Runner($urlProvider, $client);
@@ -50,7 +42,7 @@ class RunnerTest extends \PHPUnit_Framework_TestCase
         $this->assertInstanceOf(UrlInfo::class, $urlProvider->getUrls()['google']);
         $this->assertInstanceOf(ResultCollection::class, $resultCollection);
         $this->assertInstanceOf(Result::class, $resultCollection[0]);
-        $this->assertEquals((new Result('google', 200, 0, 200)), $resultCollection[0]);
+        $this->assertEquals((new Result($this->createUrlInfo(), 200, 0)), $resultCollection[0]);
     }
 
     /**
@@ -65,5 +57,19 @@ class RunnerTest extends \PHPUnit_Framework_TestCase
         ]);
 
         return HandlerStack::create($mock);
+    }
+
+    private function createUrlInfo()
+    {
+        return new UrlInfo(
+            'google',
+            'https://www.google.fr',
+            'GET',
+            [],
+            1,
+            200,
+            null,
+            null
+        );
     }
 }

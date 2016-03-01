@@ -15,6 +15,7 @@
 
 namespace Hogosha\Monitor\Renderer;
 
+use Hogosha\Monitor\Guesser\StatusGuesser;
 use Hogosha\Monitor\Model\ResultCollection;
 use Webmozart\Console\Api\IO\IO;
 use Webmozart\Console\UI\Component\Table;
@@ -45,16 +46,18 @@ class TableRenderer implements RendererInterface
         $table
             ->setHeaderRow(['Global Status', 'Status Code', 'Name', 'Response Time']);
 
+        $statusGuesser = new StatusGuesser();
+
         foreach ($resultCollection as $result) {
-            $color = $result->getExpectedStatus() != $result->getStatusCode() ? 'red' : 'green';
+            $color = $statusGuesser->isFailed($result) ? 'red' : 'green';
             $table->addRow([
-                $result->getExpectedStatus() != $result->getStatusCode() ? 'FAIL' : 'OK',
+                $statusGuesser->isFailed($result) ? 'FAIL' : 'OK',
                 sprintf(
                     '<bg=%s>%s</>',
                     $color,
                     $result->getStatusCode()
                 ),
-                $result->getName(),
+                $result->getUrl()->getName(),
                 $result->getReponseTime(),
             ]);
         }

@@ -15,11 +15,10 @@
 
 namespace Hogosha\Monitor\Model;
 
-use Hogosha\Monitor\Configuration\ConfigurationLoader;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
- * @author Guillaume Cavana <guillaume.cavana@gmail.com>
+ * Class UrlProvider.
  */
 class UrlProvider
 {
@@ -33,12 +32,17 @@ class UrlProvider
     /**
      * Constructor.
      *
-     * @param ConfigurationLoader $configurationLoader
+     * @param array $config
      */
-    public function __construct(ConfigurationLoader $configurationLoader)
+    public function __construct(array $config)
     {
         $resolver = new OptionsResolver();
-        $resolver->setDefault('metric_uuid', null);
+        $resolver->setDefaults(
+            [
+                'metric_uuid' => null,
+                'service_uuid' => null,
+            ]
+        );
         $resolver->setRequired(
             [
                 'url',
@@ -49,7 +53,6 @@ class UrlProvider
             ]
         );
 
-        $config = $configurationLoader->loadConfiguration();
         foreach ($config['urls'] as $name => $attribute) {
             $attribute = $resolver->resolve($attribute);
             $this->urls[$name] = new UrlInfo(
@@ -59,7 +62,8 @@ class UrlProvider
                 $attribute['headers'],
                 $attribute['timeout'],
                 $attribute['status_code'],
-                $attribute['metric_uuid']
+                $attribute['metric_uuid'],
+                $attribute['service_uuid']
             );
         }
     }

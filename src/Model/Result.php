@@ -20,35 +20,32 @@ namespace Hogosha\Monitor\Model;
  */
 class Result
 {
-    protected $name;
+    protected $urlInfo;
     protected $statusCode;
     protected $responseTime;
-    protected $expectedStatus;
 
     /**
      * Constructor.
      *
-     * @param string $name
-     * @param string $statusCode
-     * @param float  $responseTime
-     * @param int    $expectedStatus
+     * @param UrlInfo $urlInfo
+     * @param string  $statusCode
+     * @param float   $responseTime
      */
-    public function __construct($name, $statusCode, $responseTime, $expectedStatus)
+    public function __construct(UrlInfo $urlInfo, $statusCode, $responseTime)
     {
-        $this->name = $name;
+        $this->urlInfo = $urlInfo;
         $this->statusCode = $statusCode;
         $this->responseTime = $responseTime;
-        $this->expectedStatus = $expectedStatus;
     }
 
     /**
-     * getName.
+     * getUrl.
      *
-     * @return string
+     * @return UrlInfo
      */
-    public function getName()
+    public function getUrl()
     {
-        return $this->name;
+        return $this->urlInfo;
     }
 
     /**
@@ -59,16 +56,6 @@ class Result
     public function getStatusCode()
     {
         return $this->statusCode;
-    }
-
-    /**
-     * getExpectedStatus.
-     *
-     * @return int
-     */
-    public function getExpectedStatus()
-    {
-        return $this->expectedStatus;
     }
 
     /**

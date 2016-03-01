@@ -15,6 +15,7 @@
 
 namespace Hogosha\Monitor\Renderer;
 
+use Hogosha\Monitor\Guesser\StatusGuesser;
 use Hogosha\Monitor\Model\ResultCollection;
 use Webmozart\Console\Api\IO\IO;
 
@@ -42,13 +43,15 @@ class ListRenderer implements RendererInterface
     {
         $format = '[%s][%s] %s - %s';
 
+        $statusGuesser = new StatusGuesser();
+
         foreach ($resultCollection as $result) {
             $this->io->write(
                 sprintf(
                     $format,
-                    $result->getExpectedStatus() != $result->getStatusCode() ? 'FAIL' : 'OK',
+                    $statusGuesser->isFailed($result) ? 'FAIL' : 'OK',
                     $result->getStatusCode(),
-                    $result->getName(),
+                    $result->getUrl()->getName(),
                     $result->getReponseTime()
                 )."\n"
             );

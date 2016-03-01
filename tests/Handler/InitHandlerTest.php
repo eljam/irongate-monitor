@@ -35,8 +35,19 @@ class InitHandlerTest extends \PHPUnit_Framework_TestCase
                     'headers' => [],
                     'timeout' => 1,
                     'status_code' => 200,
+                    'metric_uuid' => null,
+                    'service_uuid' => null,
                 ],
             ],
+            'hogosha_portal' => [
+                'username' => '',
+                'password' => '',
+                'base_uri' => 'http://localhost:8000/api/',
+                'metric_update' => false,
+                'incident_update' => false,
+                'default_failed_incident_message' => 'An error as occured, we are investigating %service_name%',
+                'default_resolved_incident_message' => 'The service %service_name% is back to normal',
+            ]
         ];
 
         $content = '';
@@ -94,8 +105,19 @@ class InitHandlerTest extends \PHPUnit_Framework_TestCase
                         'headers' => [],
                         'timeout' => 1,
                         'status_code' => 200,
+                        'metric_uuid' => null,
+                        'service_uuid' => null,
                     ],
                 ],
+                'hogosha_portal' => [
+                    'username' => '',
+                    'password' => '',
+                    'base_uri' => 'http://localhost:8000/api/',
+                    'metric_update' => false,
+                    'incident_update' => false,
+                    'default_failed_incident_message' => 'An error as occured, we are investigating %service_name%',
+                    'default_resolved_incident_message' => 'The service %service_name% is back to normal',
+                ]
             ],
             Yaml::parse(file_get_contents($file))
         );
@@ -152,8 +174,19 @@ class InitHandlerTest extends \PHPUnit_Framework_TestCase
                         'headers' => [],
                         'timeout' => 1,
                         'status_code' => 200,
+                        'metric_uuid' => null,
+                        'service_uuid' => null,
                     ],
                 ],
+                'hogosha_portal' => [
+                    'username' => '',
+                    'password' => '',
+                    'base_uri' => 'http://localhost:8000/api/',
+                    'metric_update' => false,
+                    'incident_update' => false,
+                    'default_failed_incident_message' => 'An error as occured, we are investigating %service_name%',
+                    'default_resolved_incident_message' => 'The service %service_name% is back to normal',
+                ]
             ],
             Yaml::parse(file_get_contents($testFile))
         );

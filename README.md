@@ -117,11 +117,15 @@ urls:
         timeout: 1
         status_code: 200 #status expected
         metric_uuid: ec9e5ba7-9136-4b67-b049-a969e8e6dcde # Metric uuid you can find in the hogosha portal
+        service_uuid: 9e231852-5343-4653-81c8-f52ee223d3d2 # Service monitored by the hogosha portal
 
-hogosha:
+hogosha_portal:
   username: admin
   password: admin
-  base_uri: http://localhost:8000/api/ #url api        
+  base_uri: http://localhost:8000/api/
+  metric_update: true # Update metric graph
+  incident_update: true #create an incident when there is a problem and update it when there is one to resolve
+  default_incident_message: "An error as occured, we are investigating"      
 ```
 
 ## Contributing
@@ -135,6 +139,8 @@ hogosha:
 ## TODO
 - [x] Connnect to the hogosha portal
 - [x] Collect metric to the hogosha portal metric system
+- [x] Automatic incident update when failing
+- [x] Automatic service resolver
 - [ ] Refacto
 
 ## Credits

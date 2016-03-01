@@ -15,7 +15,7 @@
 
 namespace Hogosha\Monitor\Console\Handler;
 
-use Hogosha\Monitor\Portal\Pusher;
+use Hogosha\Monitor\Pusher\PusherManager;
 use Hogosha\Monitor\Client\GuzzleClient;
 use Hogosha\Monitor\Configuration\ConfigurationLoader;
 use Hogosha\Monitor\DependencyInjection\Exception\ConfigurationLoadingException;
@@ -59,8 +59,10 @@ class RunHandler
     {
         $this->configurationLoader->setRootDirectory($args->getOption('config'));
 
+        $config = $this->configurationLoader->loadConfiguration();
+
         try {
-            $urlProvider = new UrlProvider($this->configurationLoader);
+            $urlProvider = new UrlProvider($config);
             $runner = new Runner(
                 $urlProvider,
                 GuzzleClient::createClient()
@@ -70,8 +72,10 @@ class RunHandler
             $results = $runner->run();
             $renderer->render($results);
 
-            if (isset($this->configurationLoader->loadConfiguration()['hogosha'])) {
-                $pusher = new Pusher($urlProvider, $this->configurationLoader);
+            if (isset($config['hogosha_portal']['metric_update']) ||
+                isset($config['hogosha_portal']['incident_update'])
+            ) {
+                $pusher = new PusherManager($config);
                 $pusher->push($results);
             }
         } catch (ConfigurationLoadingException $e) {
