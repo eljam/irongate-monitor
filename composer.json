@@ -10,6 +10,7 @@
     ],
     "require": {
         "php" : ">=5.5.0",
+        "ext-curl" : "*",
         "symfony/console": "^2.6",
         "symfony/yaml": "^2.6",
         "webmozart/console": "~1.0@beta",

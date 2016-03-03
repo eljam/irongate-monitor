@@ -16,6 +16,8 @@
 namespace Hogosha\Monitor\Runner;
 
 use GuzzleHttp\Client;
+use GuzzleHttp\Exception\ConnectException;
+use GuzzleHttp\Pool;
 use GuzzleHttp\Promise;
 use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\TransferStats;
@@ -52,44 +54,56 @@ class Runner
      */
     public function run()
     {
-        $promises = [];
-
         $stats = [];
-        foreach ($this->urlProvider->getUrls() as $url) {
-            $promises[$url->getName()] = $this->client->sendAsync(
-                new Request($url->getMethod(), $url->getUrl(), $url->getHeaders()),
-                [
-                    'timeout' => $url->getTimeout(),
-                    'on_stats' => function (TransferStats $tranferStats) use (&$stats, $url) {
-                        $stats[$url->getName()]['total_time'] = $tranferStats->getTransferTime();
-                    },
-                ]
-            );
-        }
 
-        $results = Promise\unwrap($promises);
+        $urls = $this->urlProvider->getUrls();
+        $client = $this->client;
 
-        return $this->createResultCollection($results, $stats);
-    }
-
-    /**
-     * createResultCollection.
-     *
-     * @param array $results
-     * @param array $stats
-     *
-     * @return ResultCollection
-     */
-    private function createResultCollection(array $results, array $stats)
-    {
         $resultCollection = new ResultCollection();
-        foreach ($results as $name => $result) {
-            $resultCollection->append((new Result(
-                $this->urlProvider->getUrls()[$name],
-                $result->getStatusCode(),
-                $stats[$name]['total_time']
-            )));
-        }
+
+        $requests = function () use ($urls, $client, $resultCollection) {
+            foreach ($urls as $url) {
+                yield function () use ($client, $url, $resultCollection) {
+                    return $client->sendAsync(
+                        new Request(
+                            $url->getMethod(),
+                            $url->getUrl(),
+                            $url->getHeaders()
+                        ),
+                        [
+                            'timeout' => $url->getTimeout(),
+                            'on_stats' => function (TransferStats $tranferStats) use ($url, $resultCollection) {
+
+                                if ($tranferStats->hasResponse()) {
+                                    $statusCode = $tranferStats->getResponse()->getStatusCode();
+                                    $transferTime = $tranferStats->getTransferTime();
+                                } else {
+                                    // If we have a connection error
+                                    $statusCode = 400;
+                                    $transferTime = 0;
+                                }
+
+                                $resultCollection->append(
+                                    (new Result(
+                                        $url,
+                                        $statusCode,
+                                        $transferTime
+                                    ))
+                                );
+                            },
+                        ]
+                    );
+                };
+            }
+        };
+
+        $pool = new Pool($this->client, $requests(), [
+            'concurrency' => 5,
+        ]);
+
+        $promise = $pool->promise();
+
+        $promise->wait();
 
         return $resultCollection;
     }

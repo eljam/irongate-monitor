@@ -15,6 +15,7 @@
 
 namespace Hogosha\Monitor\Pusher;
 
+use Hogosha\Monitor\Guesser\StatusGuesser;
 use Hogosha\Monitor\Model\Result;
 use Hogosha\Sdk\Resource\Factory\ResourceFactory;
 
@@ -28,17 +29,21 @@ class MetricPusher extends AbstractPusher
      */
     public function push(Result $result)
     {
-        $resourceFactory = new ResourceFactory($this->getClient());
-        $metricResource = $resourceFactory->get('metricPoint');
+        $statusGuesser = new StatusGuesser();
 
-        try {
-            $metricResource->createMetricPoint([
-                'metric' => $result->getUrl()->getMetricUuid(),
-                'value' => $result->getReponseTime() * 1000,
-                'datetime' => date('Y-m-d H:i:s'),
-            ]);
-        } catch (\Exception $e) {
-            echo sprintf('An error has occured %s', $e->getMessage());
+        if ($statusGuesser->isOk($result)) {
+            $resourceFactory = new ResourceFactory($this->getClient());
+            $metricResource = $resourceFactory->get('metricPoint');
+
+            try {
+                $metricResource->createMetricPoint([
+                    'metric' => $result->getUrl()->getMetricUuid(),
+                    'value' => $result->getReponseTime() * 1000,
+                    'datetime' => date('Y-m-d H:i:s'),
+                ]);
+            } catch (\Exception $e) {
+                echo sprintf('An error has occured %s', $e->getMessage());
+            }
         }
     }
 }
