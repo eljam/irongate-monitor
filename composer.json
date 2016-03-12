@@ -8,6 +8,8 @@
             "email": "guillaume.cavana@gmail.com"
         }
     ],
+    "minimum-stability": "beta",
+    "prefer-stable": true,
     "require": {
         "php" : ">=5.5.0",
         "ext-curl" : "*",

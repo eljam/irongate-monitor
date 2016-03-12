@@ -54,6 +54,8 @@ class Compiler
             ->exclude('docs')
             ->in($root.'/src')
             ->in($root.'/vendor/guzzlehttp')
+            ->in($root.'/vendor/eljam')
+            ->in($root.'/vendor/hogosha')
             ->in($root.'/vendor/webmozart')
             ->in($root.'/vendor/psr')
             ->in($root.'/vendor/guzzle')
