@@ -2,7 +2,7 @@
 
 Monitoring tool for [Hogosha Service](https://github.com/hogosha/hogosha) that can be used as a standalone tool as a simple ping program.
 
-**Currently in development.**
+**Currently in development but ready to use in production**
 
 [![Build Status](https://img.shields.io/travis/hogosha/monitor.svg?branch=master&style=flat-square)](https://travis-ci.org/hogosha/monitor) [![Code Quality](https://img.shields.io/scrutinizer/g/hogosha/monitor.svg?b=master&style=flat-square)](https://scrutinizer-ci.com/g/hogosha/monitor/?branch=master) [![Code Coverage](https://img.shields.io/coveralls/hogosha/monitor.svg?style=flat-square)](https://coveralls.io/r/hogosha/monitor) [![SensioLabsInsight](https://insight.sensiolabs.com/projects/87bbdd85-2cd8-4556-94c6-5ed9f501cf7d/mini.png)](https://insight.sensiolabs.com/projects/87bbdd85-2cd8-4556-94c6-5ed9f501cf7d) [![Latest Unstable Version](https://poser.pugx.org/hogosha/monitor/v/unstable)](https://packagist.org/packages/hogosha/monitor)
 [![Latest Stable Version](https://poser.pugx.org/hogosha/monitor/v/stable)](https://packagist.org/packages/hogosha/monitor)
@@ -125,7 +125,8 @@ hogosha_portal:
   base_uri: http://localhost:8000/api/
   metric_update: true # Update metric graph
   incident_update: true #create an incident when there is a problem and update it when there is one to resolve
-  default_incident_message: "An error as occured, we are investigating"      
+  default_failed_incident_message: "An error as occured, we are investigating %service_name%",
+  default_resolved_incident_message: "The service %service_name% is back to normal"
 ```
 
 ## Contributing
