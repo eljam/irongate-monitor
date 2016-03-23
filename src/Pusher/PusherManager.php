@@ -17,6 +17,7 @@ namespace Hogosha\Monitor\Pusher;
 
 use Hogosha\Monitor\Model\ResultCollection;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Webmozart\Console\Api\IO\IO;
 
 /**
  * Class PusherManager.
@@ -29,8 +30,9 @@ class PusherManager
      * Constructor.
      *
      * @param array $config
+     * @param IO    $io
      */
-    public function __construct(array $config)
+    public function __construct(array $config, IO $io)
     {
         $resolver = new OptionsResolver();
         $resolver->setRequired(
@@ -48,11 +50,11 @@ class PusherManager
         $options = $resolver->resolve($config['hogosha_portal']);
 
         if ($options['metric_update']) {
-            $this->pushers['metric'] = new MetricPusher($options);
+            $this->pushers['metric'] = new MetricPusher($options, $io);
         }
 
         if ($options['incident_update']) {
-            $this->pushers['incident'] = new IncidentPusher($options);
+            $this->pushers['incident'] = new IncidentPusher($options, $io);
         }
     }
 

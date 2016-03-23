@@ -11,12 +11,23 @@ use Hogosha\Monitor\Model\ResultCollection;
 use Hogosha\Monitor\Model\UrlInfo;
 use Hogosha\Monitor\Model\UrlProvider;
 use Hogosha\Monitor\Runner\Runner;
+use Webmozart\Console\IO\BufferedIO;
 
 /**
  * @author Guillaume Cavana <guillaume.cavana@gmail.com>
  */
 class RunnerTest extends \PHPUnit_Framework_TestCase
 {
+    /**
+     * @var BufferedIO
+     */
+    private $io;
+
+    protected function setUp()
+    {
+        $this->io = new BufferedIO();
+    }
+
     /**
      * testRunner.
      */
@@ -34,7 +45,7 @@ class RunnerTest extends \PHPUnit_Framework_TestCase
             ],
         ]);
 
-        $client = GuzzleClient::createClient(['handler' => $this->mockClient()]);
+        $client = GuzzleClient::createClient($this->io, ['handler' => $this->mockClient()]);
         $runner = new Runner($urlProvider, $client);
         $resultCollection = $runner->run();
 

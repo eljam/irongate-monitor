@@ -64,7 +64,7 @@ class IncidentPusher extends AbstractPusher
                 ]);
             }
         } catch (\Exception $e) {
-            echo sprintf('An error has occured %s', $e->getMessage());
+            throw new \Exception(sprintf('An error has occured %s', $e->getMessage()));
         }
     }
 }

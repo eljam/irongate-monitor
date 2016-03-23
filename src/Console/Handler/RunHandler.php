@@ -65,7 +65,7 @@ class RunHandler
             $urlProvider = new UrlProvider($config);
             $runner = new Runner(
                 $urlProvider,
-                GuzzleClient::createClient()
+                GuzzleClient::createClient($io)
             );
 
             $renderer = RendererFactory::create($args->getOption('format'), $io);
@@ -75,7 +75,7 @@ class RunHandler
             if (isset($config['hogosha_portal']['metric_update']) ||
                 isset($config['hogosha_portal']['incident_update'])
             ) {
-                $pusher = new PusherManager($config);
+                $pusher = new PusherManager($config, $io);
                 $pusher->push($results);
             }
         } catch (ConfigurationLoadingException $e) {

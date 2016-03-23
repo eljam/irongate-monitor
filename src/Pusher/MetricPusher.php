@@ -42,7 +42,7 @@ class MetricPusher extends AbstractPusher
                     'datetime' => date('Y-m-d H:i:s'),
                 ]);
             } catch (\Exception $e) {
-                echo sprintf('An error has occured %s', $e->getMessage());
+                throw new \Exception(sprintf('An error has occured %s', $e->getMessage()));
             }
         }
     }

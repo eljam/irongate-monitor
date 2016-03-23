@@ -15,8 +15,14 @@
 
 namespace Hogosha\Monitor\Pusher;
 
+use Concat\Http\Middleware\Logger;
+use GuzzleHttp\HandlerStack;
+use GuzzleHttp\MessageFormatter;
 use Hogosha\Monitor\Model\Result;
 use Hogosha\Sdk\Api\Client;
+use Symfony\Component\Console\Logger\ConsoleLogger;
+use Webmozart\Console\Adapter\IOOutput;
+use Webmozart\Console\Api\IO\IO;
 
 /**
  * Class AbstractPusher.
@@ -37,13 +43,22 @@ abstract class AbstractPusher implements PusherInterface
      */
     protected $options;
 
+
+    /**
+     * $io.
+     *
+     * @var IO
+     */
+    protected $io;
+
     /**
      * Constructor.
      *
      * @param array $options
      */
-    public function __construct(array $options)
+    public function __construct(array $options, IO $io)
     {
+        $this->io      = $io;
         $this->options = $options;
     }
 
@@ -74,11 +89,21 @@ abstract class AbstractPusher implements PusherInterface
      */
     public function getClient()
     {
+        $stack = HandlerStack::create();
+
+        $middleware = (new Logger((new ConsoleLogger(new IOOutput($this->io)))));
+        $middleware->setRequestLoggingEnabled(true);
+        $format = "<fg=white;bg=blue>Request:</>\n <fg=white;bg=default>{host} {req_headers} \nBody: {req_body} </>\n <fg=white;bg=blue>Reponse:</>\n<fg=white;bg=default>{res_body} {res_headers}</>\n";
+        $middleware->setFormatter((new MessageFormatter($format)));
+
+        $stack->push($middleware, 'logger');
+
         return new Client(
             [
                 'username' => $this->options['username'],
                 'password' => $this->options['password'],
                 'base_uri' => $this->options['base_uri'],
+                'handler'  => $stack,
             ]
         );
     }
