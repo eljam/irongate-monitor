@@ -24,6 +24,28 @@ class TableRendererTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * testTableRendererError.
+     */
+    public function testTableRendererError()
+    {
+        $renderer = RendererFactory::create('table', $this->io);
+        $renderer->render($this->createResultCollection(true));
+
+        $output = <<<TABLE
++---------------+-------------+---------+---------------+---------------+
+| Global Status | Status Code | Name    | Response Time | Error Log     |
++---------------+-------------+---------+---------------+---------------+
+| FAIL          | 400         | Example | 0.42          | Couldn't      |
+|               |             |         |               | resolve proxy |
+|               |             |         |               | name          |
++---------------+-------------+---------+---------------+---------------+
+
+TABLE;
+        $this->assertInstanceOf(RendererInterface::class, $renderer);
+        $this->assertSame($output, $this->io->fetchOutput());
+    }
+
+    /**
      * testTableRenderer.
      */
     public function testTableRenderer()
@@ -32,11 +54,11 @@ class TableRendererTest extends \PHPUnit_Framework_TestCase
         $renderer->render($this->createResultCollection());
 
         $output = <<<TABLE
-+---------------+-------------+---------+---------------+
-| Global Status | Status Code | Name    | Response Time |
-+---------------+-------------+---------+---------------+
-| FAIL          | 200         | Example | 0.42          |
-+---------------+-------------+---------+---------------+
++---------------+-------------+---------+---------------+-----------+
+| Global Status | Status Code | Name    | Response Time | Error Log |
++---------------+-------------+---------+---------------+-----------+
+| OK            | 200         | Example | 0.42          |           |
++---------------+-------------+---------+---------------+-----------+
 
 TABLE;
         $this->assertInstanceOf(RendererInterface::class, $renderer);
@@ -45,10 +67,16 @@ TABLE;
 
     /**
      * createResultCollection.
+     * @param boolean $hasError
+     *
      */
-    public function createResultCollection()
+    public function createResultCollection($hasError = false)
     {
-        $result = new Result($this->createUrlInfo(), 200, 0.42);
+        $errorLog = null;
+        if ($hasError) {
+            $errorLog = curl_strerror(5);
+        }
+        $result = new Result($this->createUrlInfo($hasError), $hasError ? 400 : 200, 0.42, $errorLog);
 
         $resultCollection = new ResultCollection();
         $resultCollection->append($result);
@@ -64,7 +92,7 @@ TABLE;
             'GET',
             [],
             1,
-            404,
+            200,
             null,
             null
         );

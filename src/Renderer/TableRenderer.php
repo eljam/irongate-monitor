@@ -44,7 +44,7 @@ class TableRenderer implements RendererInterface
     {
         $table = new Table();
         $table
-            ->setHeaderRow(['Global Status', 'Status Code', 'Name', 'Response Time']);
+            ->setHeaderRow(['Global Status', 'Status Code', 'Name', 'Response Time', 'Error Log']);
 
         $statusGuesser = new StatusGuesser();
 
@@ -59,6 +59,10 @@ class TableRenderer implements RendererInterface
                 ),
                 $result->getUrl()->getName(),
                 $result->getReponseTime(),
+                sprintf(
+                    '<bg=red>%s</>',
+                    $result->getHandlerError()
+                ),
             ]);
         }
 

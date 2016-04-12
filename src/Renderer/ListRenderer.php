@@ -41,18 +41,22 @@ class ListRenderer implements RendererInterface
      */
     public function render(ResultCollection $resultCollection)
     {
-        $format = '[%s][%s] %s - %s';
+        $format = '[%s][%s] %s - %s%s';
+
+        $errorFormat = ' - <bg=red>%s</>';
 
         $statusGuesser = new StatusGuesser();
 
         foreach ($resultCollection as $result) {
+            $errorLog = $result->getHandlerError();
             $this->io->write(
                 sprintf(
                     $format,
                     $statusGuesser->isFailed($result) ? 'FAIL' : 'OK',
                     $result->getStatusCode(),
                     $result->getUrl()->getName(),
-                    $result->getReponseTime()
+                    $result->getReponseTime(),
+                    (null !== $errorLog) ? sprintf($errorFormat, $result->getHandlerError()) : ''
                 )."\n"
             );
         }

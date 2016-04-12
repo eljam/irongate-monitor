@@ -24,18 +24,35 @@ class CsvRendererTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * testTableRenderer.
+     * testCsvRendererError.
      */
-    public function testTableRenderer()
+    public function testCsvRendererError()
+    {
+        $renderer = RendererFactory::create('csv', $this->io);
+        $renderer->render($this->createResultCollection(true));
+
+        $output = <<<CSV
+"Global Status","Status Code",Name,"Reponse Time","Error Log"
+FAIL,400,Example,0.42,"Couldn't resolve proxy name"
+
+CSV;
+        $this->assertInstanceOf(RendererInterface::class, $renderer);
+        $this->assertSame($output, $this->io->fetchOutput());
+    }
+
+    /**
+     * testCsvRenderer.
+     */
+    public function testCsvRenderer()
     {
         $renderer = RendererFactory::create('csv', $this->io);
         $renderer->render($this->createResultCollection());
 
-        $output = <<<TABLE
-"Global Status","Status Code",Name,"Reponse Time"
-OK,200,Example,0.42
+        $output = <<<CSV
+"Global Status","Status Code",Name,"Reponse Time","Error Log"
+OK,200,Example,0.42,
 
-TABLE;
+CSV;
 
         $this->assertInstanceOf(RendererInterface::class, $renderer);
         $this->assertSame($output, $this->io->fetchOutput());
@@ -43,10 +60,15 @@ TABLE;
 
     /**
      * createResultCollection.
+     * @param boolean $hasError
      */
-    public function createResultCollection()
+    public function createResultCollection($hasError = false)
     {
-        $result = new Result($this->createUrlInfo(), 200, 0.42);
+        $errorLog = null;
+        if ($hasError) {
+            $errorLog = curl_strerror(5);
+        }
+        $result = new Result($this->createUrlInfo(), $hasError ? 400 : 200, 0.42, $errorLog);
 
         $resultCollection = new ResultCollection();
         $resultCollection->append($result);

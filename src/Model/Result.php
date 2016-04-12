@@ -23,6 +23,7 @@ class Result
     protected $urlInfo;
     protected $statusCode;
     protected $responseTime;
+    protected $handlerError;
 
     /**
      * Constructor.
@@ -30,12 +31,14 @@ class Result
      * @param UrlInfo $urlInfo
      * @param string  $statusCode
      * @param float   $responseTime
+     * @param string  $handlerError Get a string error from the handler
      */
-    public function __construct(UrlInfo $urlInfo, $statusCode, $responseTime)
+    public function __construct(UrlInfo $urlInfo, $statusCode, $responseTime, $handlerError = null)
     {
         $this->urlInfo = $urlInfo;
         $this->statusCode = $statusCode;
         $this->responseTime = $responseTime;
+        $this->handlerError = $handlerError;
     }
 
     /**
@@ -66,5 +69,15 @@ class Result
     public function getReponseTime()
     {
         return $this->responseTime;
+    }
+
+    /**
+     * getHandlerError.
+     *
+     * @return string
+     */
+    public function getHandlerError()
+    {
+        return $this->handlerError;
     }
 }

@@ -37,7 +37,7 @@ composer require hogosha/monitor
 Download the last PHAR file from the release panel
 
 ```bash
-VERSION=master curl -LO "https://raw.githubusercontent.com/hogosha/monitor/$VERSION/build/monitor.phar"
+VERSION=master; curl -LO "https://raw.githubusercontent.com/hogosha/monitor/$VERSION/build/monitor.phar"
 chmod u+x monitor.phar
 mv monitor.phar /usr/local/bin/hogosha-monitor
 ```

@@ -24,6 +24,23 @@ class ListRendererTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * testListRendererError.
+     */
+    public function testListRendererError()
+    {
+        $renderer = RendererFactory::create('list', $this->io);
+        $renderer->render($this->createResultCollection(true));
+
+        $output = <<<LIST
+[FAIL][400] Example - 0.42 - Couldn't resolve proxy name
+
+LIST;
+
+        $this->assertInstanceOf(RendererInterface::class, $renderer);
+        $this->assertSame($output, $this->io->fetchOutput());
+    }
+
+    /**
      * testTableRenderer.
      */
     public function testListRenderer()
@@ -31,10 +48,10 @@ class ListRendererTest extends \PHPUnit_Framework_TestCase
         $renderer = RendererFactory::create('list', $this->io);
         $renderer->render($this->createResultCollection());
 
-        $output = <<<TABLE
-[FAIL][200] Example - 0.42
+        $output = <<<LIST
+[OK][200] Example - 0.42
 
-TABLE;
+LIST;
 
         $this->assertInstanceOf(RendererInterface::class, $renderer);
         $this->assertSame($output, $this->io->fetchOutput());
@@ -42,10 +59,15 @@ TABLE;
 
     /**
      * createResultCollection.
+     * @param boolean $hasError
      */
-    public function createResultCollection()
+    public function createResultCollection($hasError = false)
     {
-        $result = new Result($this->createUrlInfo(), 200, 0.42);
+        $errorLog = null;
+        if ($hasError) {
+            $errorLog = curl_strerror(5);
+        }
+        $result = new Result($this->createUrlInfo(), $hasError ? 400 : 200, 0.42, $errorLog);
 
         $resultCollection = new ResultCollection();
         $resultCollection->append($result);
@@ -61,7 +83,7 @@ TABLE;
             'GET',
             [],
             1,
-            404,
+            200,
             null,
             null
         );

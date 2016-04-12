@@ -74,6 +74,8 @@ class Runner
                             'timeout' => $url->getTimeout(),
                             'on_stats' => function (TransferStats $tranferStats) use ($url, $resultCollection) {
 
+                                $handlerError = null;
+
                                 if ($tranferStats->hasResponse()) {
                                     $statusCode = $tranferStats->getResponse()->getStatusCode();
                                     $transferTime = $tranferStats->getTransferTime();
@@ -81,13 +83,15 @@ class Runner
                                     // If we have a connection error
                                     $statusCode = 400;
                                     $transferTime = 0;
+                                    $handlerError = curl_strerror($tranferStats->getHandlerErrorData());
                                 }
 
                                 $resultCollection->append(
                                     (new Result(
                                         $url,
                                         $statusCode,
-                                        $transferTime
+                                        $transferTime,
+                                        $handlerError
                                     ))
                                 );
                             },
