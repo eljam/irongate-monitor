@@ -72,6 +72,7 @@ class Runner
                         ),
                         [
                             'timeout' => $url->getTimeout(),
+                            'connect_timeout' => $url->getTimeout(),
                             'on_stats' => function (TransferStats $tranferStats) use ($url, $resultCollection) {
 
                                 $handlerError = null;
