@@ -41,7 +41,7 @@ class ListRenderer implements RendererInterface
      */
     public function render(ResultCollection $resultCollection)
     {
-        $format = '[%s][%s] %s - %s%s';
+        $format = '[%s][%s] %s - %s%s%s';
 
         $errorFormat = ' - <bg=red>%s</>';
 
@@ -49,6 +49,8 @@ class ListRenderer implements RendererInterface
 
         foreach ($resultCollection as $result) {
             $errorLog = $result->getHandlerError();
+            $validatorErrorLog = $result->getValidatorError();
+
             $this->io->write(
                 sprintf(
                     $format,
@@ -56,7 +58,8 @@ class ListRenderer implements RendererInterface
                     $result->getStatusCode(),
                     $result->getUrl()->getName(),
                     $result->getReponseTime(),
-                    (null !== $errorLog) ? sprintf($errorFormat, $result->getHandlerError()) : ''
+                    (null !== $errorLog) ? sprintf($errorFormat, $errorLog) : '',
+                    (null !== $validatorErrorLog) ? sprintf($errorFormat, $validatorErrorLog) : ''
                 )."\n"
             );
         }

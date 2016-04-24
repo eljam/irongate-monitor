@@ -5,6 +5,7 @@ namespace Hogosha\Monitor\Renderer;
 use Hogosha\Monitor\Model\Result;
 use Hogosha\Monitor\Model\ResultCollection;
 use Hogosha\Monitor\Model\UrlInfo;
+use Hogosha\Monitor\Validator\Validator;
 use Webmozart\Console\Api\IO\IO;
 use Webmozart\Console\IO\BufferedIO;
 
@@ -32,8 +33,8 @@ class CsvRendererTest extends \PHPUnit_Framework_TestCase
         $renderer->render($this->createResultCollection(true));
 
         $output = <<<CSV
-"Global Status","Status Code",Name,"Reponse Time","Error Log"
-FAIL,400,Example,0.42,"Couldn't resolve proxy name"
+"Global Status","Status Code",Name,"Reponse Time","Http Error Log","Validator Error Log"
+FAIL,400,Example,0.42,"Couldn't resolve proxy name",
 
 CSV;
         $this->assertInstanceOf(RendererInterface::class, $renderer);
@@ -49,8 +50,8 @@ CSV;
         $renderer->render($this->createResultCollection());
 
         $output = <<<CSV
-"Global Status","Status Code",Name,"Reponse Time","Error Log"
-OK,200,Example,0.42,
+"Global Status","Status Code",Name,"Reponse Time","Http Error Log","Validator Error Log"
+OK,200,Example,0.42,,
 
 CSV;
 
@@ -85,6 +86,7 @@ CSV;
             [],
             1,
             200,
+            (new Validator()),
             null,
             null
         );

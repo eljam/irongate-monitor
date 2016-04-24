@@ -5,6 +5,7 @@ namespace Hogosha\Monitor\Renderer;
 use Hogosha\Monitor\Model\Result;
 use Hogosha\Monitor\Model\ResultCollection;
 use Hogosha\Monitor\Model\UrlInfo;
+use Hogosha\Monitor\Validator\Validator;
 use Webmozart\Console\Api\IO\IO;
 use Webmozart\Console\IO\BufferedIO;
 
@@ -32,7 +33,7 @@ class ListRendererTest extends \PHPUnit_Framework_TestCase
         $renderer->render($this->createResultCollection(true));
 
         $output = <<<LIST
-[FAIL][400] Example - 0.42 - Couldn't resolve proxy name
+[FAIL][400] Example - 0.42 - Couldn't resolve proxy name - Validation Error
 
 LIST;
 
@@ -60,14 +61,20 @@ LIST;
     /**
      * createResultCollection.
      * @param boolean $hasError
+     *
+     * @return ResultCollection
      */
     public function createResultCollection($hasError = false)
     {
         $errorLog = null;
+        $validationErrorLog = null;
+
         if ($hasError) {
             $errorLog = curl_strerror(5);
+            $validationErrorLog = 'Validation Error';
         }
-        $result = new Result($this->createUrlInfo(), $hasError ? 400 : 200, 0.42, $errorLog);
+
+        $result = new Result($this->createUrlInfo(), $hasError ? 400 : 200, 0.42, $errorLog, $hasError ? false : true, $validationErrorLog);
 
         $resultCollection = new ResultCollection();
         $resultCollection->append($result);
@@ -84,6 +91,7 @@ LIST;
             [],
             1,
             200,
+            (new Validator()),
             null,
             null
         );

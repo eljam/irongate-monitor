@@ -5,6 +5,7 @@ namespace Hogosha\Monitor\Renderer;
 use Hogosha\Monitor\Model\Result;
 use Hogosha\Monitor\Model\ResultCollection;
 use Hogosha\Monitor\Model\UrlInfo;
+use Hogosha\Monitor\Validator\Validator;
 use Webmozart\Console\Api\IO\IO;
 use Webmozart\Console\IO\BufferedIO;
 
@@ -32,13 +33,13 @@ class TableRendererTest extends \PHPUnit_Framework_TestCase
         $renderer->render($this->createResultCollection(true));
 
         $output = <<<TABLE
-+---------------+-------------+---------+---------------+---------------+
-| Global Status | Status Code | Name    | Response Time | Error Log     |
-+---------------+-------------+---------+---------------+---------------+
-| FAIL          | 400         | Example | 0.42          | Couldn't      |
-|               |             |         |               | resolve proxy |
-|               |             |         |               | name          |
-+---------------+-------------+---------+---------------+---------------+
++--------+--------+---------+----------+--------------------+------------------+
+| Global | Status | Name    | Response | Http Error Log     | Validator Error  |
+| Status | Code   |         | Time     |                    | Log              |
++--------+--------+---------+----------+--------------------+------------------+
+| FAIL   | 400    | Example | 0.42     | Couldn't           | Validation Error |
+|        |        |         |          | resolve proxy name |                  |
++--------+--------+---------+----------+--------------------+------------------+
 
 TABLE;
         $this->assertInstanceOf(RendererInterface::class, $renderer);
@@ -54,11 +55,12 @@ TABLE;
         $renderer->render($this->createResultCollection());
 
         $output = <<<TABLE
-+---------------+-------------+---------+---------------+-----------+
-| Global Status | Status Code | Name    | Response Time | Error Log |
-+---------------+-------------+---------+---------------+-----------+
-| OK            | 200         | Example | 0.42          |           |
-+---------------+-------------+---------+---------------+-----------+
++--------+--------+---------+----------+----------------+---------------------+
+| Global | Status | Name    | Response | Http Error Log | Validator Error Log |
+| Status | Code   |         | Time     |                |                     |
++--------+--------+---------+----------+----------------+---------------------+
+| OK     | 200    | Example | 0.42     |                |                     |
++--------+--------+---------+----------+----------------+---------------------+
 
 TABLE;
         $this->assertInstanceOf(RendererInterface::class, $renderer);
@@ -73,10 +75,14 @@ TABLE;
     public function createResultCollection($hasError = false)
     {
         $errorLog = null;
+        $validationErrorLog = null;
+
         if ($hasError) {
             $errorLog = curl_strerror(5);
+            $validationErrorLog = 'Validation Error';
         }
-        $result = new Result($this->createUrlInfo($hasError), $hasError ? 400 : 200, 0.42, $errorLog);
+
+        $result = new Result($this->createUrlInfo(), $hasError ? 400 : 200, 0.42, $errorLog, $hasError ? false : true, $validationErrorLog);
 
         $resultCollection = new ResultCollection();
         $resultCollection->append($result);
@@ -93,6 +99,7 @@ TABLE;
             [],
             1,
             200,
+            (new Validator()),
             null,
             null
         );

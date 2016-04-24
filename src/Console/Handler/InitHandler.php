@@ -87,6 +87,7 @@ class InitHandler
                         'method' => 'GET',
                         'headers' => [],
                         'timeout' => 1,
+                        'validator' => [],
                         'status_code' => 200,
                         'metric_uuid' => null,
                         'service_uuid' => null,
@@ -100,7 +101,7 @@ class InitHandler
                     'incident_update' => false,
                     'default_failed_incident_message' => 'An error as occured, we are investigating %service_name%',
                     'default_resolved_incident_message' => 'The service %service_name% is back to normal',
-                ]
+                ],
             ];
 
             // Dump configuration

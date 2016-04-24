@@ -18,7 +18,6 @@ namespace Hogosha\Monitor\Client;
 use Concat\Http\Middleware\Logger;
 use GuzzleHttp\Client;
 use GuzzleHttp\HandlerStack;
-use GuzzleHttp\Handler\CurlMultiHandler;
 use GuzzleHttp\MessageFormatter;
 use Symfony\Component\Console\Logger\ConsoleLogger;
 use Webmozart\Console\Adapter\IOOutput;
