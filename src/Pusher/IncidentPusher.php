@@ -51,6 +51,7 @@ class IncidentPusher extends AbstractPusher
                     'name' => str_replace('%service_name%', $service['name'], $this->getDefaultFailedIncidentMessage()),
                     'service' => $result->getUrl()->getServiceUuid(),
                     'status' => StatusGuesser::IDENTIFIED,
+                    'error_log' => $result->getHandlerError(),
                 ]);
             }
 
@@ -61,6 +62,7 @@ class IncidentPusher extends AbstractPusher
                     'name' => str_replace('%service_name%', $service['name'], $this->getDefaultResolvedIncidentMessage()),
                     'service' => $result->getUrl()->getServiceUuid(),
                     'status' => StatusGuesser::RESOLVED,
+                    'error_log' => $result->getHandlerError(),
                 ]);
             }
         } catch (\Exception $e) {
