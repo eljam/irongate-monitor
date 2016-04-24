@@ -73,6 +73,7 @@ urls:
         method: GET
         headers: { Accept: text/html }
         timeout: 1
+        validator: { }
         status_code: 200 #status expected
 ```
 
@@ -91,18 +92,82 @@ hogosha-monitor run -c $HOME
 **Output - Table**
 
 ```bash
-+---------------+-------------+---------+---------------+
-| Global Status | Status Code | Name    | Response Time |
-+---------------+-------------+---------+---------------+
-| OK            | 200         | Google  | 0.42          |
-+---------------+-------------+---------+---------------+
++---------------+-------------+---------+---------------+----------------+---------------------+
+| Global Status | Status Code | Name    | Response Time | Http Error Log | Validator Error Log |
++---------------+-------------+---------+---------------+----------------+---------------------+
+| OK            | 200         | thefork | 0.274106      |                |                     |
++---------------+-------------+---------+---------------+----------------+---------------------+
 ```
 
 **Output - Csv**
 
 ```bash
-"Global Status","Status Code",Name,"Reponse Time"
-OK,200,google,0.42
+"Global Status","Status Code",Name,"Reponse Time","Http Error Log","Validator Error Log"
+OK,200,thefork,0.307092,,
+```
+
+## Validator
+
+Sometimes we need more than just status codes. So we introduced a validator system for **html**, **xml** and **json** so you can test a existing string. 
+
+**Html Validator**
+
+```yaml
+urls:
+    google:
+        url: 'https://www.google.fr'
+        method: GET
+        headers: { Accept: text/html }
+        timeout: 1
+        validator:
+        	type: html
+        	match: /images/ #regex will be 
+        status_code: 200 #status expected
+```
+
+**Json Validator**
+
+Json example:
+
+```json
+{"name": "Chuck Norris"}
+```
+
+```yaml
+urls:
+    google:
+        url: 'https://www.example.org/names.json'
+        method: GET
+        headers: { Accept: text/json }
+        timeout: 1
+        validator:
+        	type: json
+        	match: name #we use property accessor
+        status_code: 200 #status expected
+```
+
+**Xml Validator**
+
+Xml example:
+
+```xml
+<?xml version="1.0"?>
+<root>
+    <name>chuck</name>
+</root>
+```
+
+```yaml
+urls:
+    google:
+        url: 'https://www.example.org/test.xml'
+        method: GET
+        headers: { Accept: text/xml }
+        timeout: 1
+        validator:
+        	type: xml
+        	match: //name #use xpath selector
+        status_code: 200 #status expected
 ```
 
 ## Connect to hogosha portal

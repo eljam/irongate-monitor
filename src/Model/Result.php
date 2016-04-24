@@ -24,21 +24,33 @@ class Result
     protected $statusCode;
     protected $responseTime;
     protected $handlerError;
+    protected $validatorResult;
+    protected $validatorError;
 
     /**
      * Constructor.
      *
-     * @param UrlInfo $urlInfo
-     * @param string  $statusCode
-     * @param float   $responseTime
-     * @param string  $handlerError Get a string error from the handler
+     * @param UrlInfo   $urlInfo
+     * @param string    $statusCode
+     * @param float     $responseTime
+     * @param string    $handlerError    Get a string error from the handler
+     * @param bool|null $validatorResult Get the validator result
+     * @param string    $validatorError  Get the validator error
      */
-    public function __construct(UrlInfo $urlInfo, $statusCode, $responseTime, $handlerError = null)
-    {
+    public function __construct(
+        UrlInfo $urlInfo,
+        $statusCode,
+        $responseTime,
+        $handlerError = null,
+        $validatorResult = null,
+        $validatorError = null
+    ) {
         $this->urlInfo = $urlInfo;
         $this->statusCode = $statusCode;
         $this->responseTime = $responseTime;
         $this->handlerError = $handlerError;
+        $this->validatorResult = $validatorResult;
+        $this->validatorError = $validatorError;
     }
 
     /**
@@ -74,10 +86,30 @@ class Result
     /**
      * getHandlerError.
      *
-     * @return string
+     * @return string|null
      */
     public function getHandlerError()
     {
         return $this->handlerError;
+    }
+
+    /**
+     * getValidatorResult.
+     *
+     * @return bool
+     */
+    public function getValidatorResult()
+    {
+        return $this->validatorResult;
+    }
+
+    /**
+     * getValidatorError.
+     *
+     * @return string|null
+     */
+    public function getValidatorError()
+    {
+        return $this->validatorError;
     }
 }

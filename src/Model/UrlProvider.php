@@ -15,6 +15,7 @@
 
 namespace Hogosha\Monitor\Model;
 
+use Hogosha\Monitor\Validator\Validator;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
@@ -41,8 +42,10 @@ class UrlProvider
             [
                 'metric_uuid' => null,
                 'service_uuid' => null,
+                'validator' => [],
             ]
         );
+
         $resolver->setRequired(
             [
                 'url',
@@ -62,6 +65,9 @@ class UrlProvider
                 $attribute['headers'],
                 $attribute['timeout'],
                 $attribute['status_code'],
+                (new Validator(
+                    $attribute['validator']
+                )),
                 $attribute['metric_uuid'],
                 $attribute['service_uuid']
             );

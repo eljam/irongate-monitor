@@ -34,6 +34,11 @@ class StatusGuesser
      */
     public function isOk(Result $result)
     {
+        //The validator is used, so we can apply the rule
+        if (null !== $result->getValidatorResult()) {
+            return ($result->getUrl()->getExpectedStatus() == $result->getStatusCode()) && $result->getValidatorResult();
+        }
+
         return $result->getUrl()->getExpectedStatus() == $result->getStatusCode();
     }
 

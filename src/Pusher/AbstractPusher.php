@@ -43,7 +43,6 @@ abstract class AbstractPusher implements PusherInterface
      */
     protected $options;
 
-
     /**
      * $io.
      *
@@ -58,7 +57,7 @@ abstract class AbstractPusher implements PusherInterface
      */
     public function __construct(array $options, IO $io)
     {
-        $this->io      = $io;
+        $this->io = $io;
         $this->options = $options;
     }
 
@@ -103,7 +102,7 @@ abstract class AbstractPusher implements PusherInterface
                 'username' => $this->options['username'],
                 'password' => $this->options['password'],
                 'base_uri' => $this->options['base_uri'],
-                'handler'  => $stack,
+                'handler' => $stack,
             ]
         );
     }

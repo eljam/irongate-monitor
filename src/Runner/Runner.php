@@ -16,7 +16,6 @@
 namespace Hogosha\Monitor\Runner;
 
 use GuzzleHttp\Client;
-use GuzzleHttp\Exception\ConnectException;
 use GuzzleHttp\Pool;
 use GuzzleHttp\Promise;
 use GuzzleHttp\Psr7\Request;
@@ -54,11 +53,10 @@ class Runner
      */
     public function run()
     {
-        $stats = [];
-
         $urls = $this->urlProvider->getUrls();
         $client = $this->client;
 
+        //This is a bit messie, need a refacto
         $resultCollection = new ResultCollection();
 
         $requests = function () use ($urls, $client, $resultCollection) {
@@ -76,8 +74,15 @@ class Runner
                             'on_stats' => function (TransferStats $tranferStats) use ($url, $resultCollection) {
 
                                 $handlerError = null;
+                                $validatorError = null;
 
                                 if ($tranferStats->hasResponse()) {
+                                    $validatorResult = $url->getValidator()->check((string) $tranferStats->getResponse()->getBody());
+
+                                    if (false === $validatorResult) {
+                                        $validatorError = $url->getValidator()->getError();
+                                    }
+
                                     $statusCode = $tranferStats->getResponse()->getStatusCode();
                                     $transferTime = $tranferStats->getTransferTime();
                                 } else {
@@ -92,7 +97,9 @@ class Runner
                                         $url,
                                         $statusCode,
                                         $transferTime,
-                                        $handlerError
+                                        $handlerError,
+                                        $validatorResult,
+                                        $validatorError
                                     ))
                                 );
                             },

@@ -11,6 +11,7 @@ use Hogosha\Monitor\Model\ResultCollection;
 use Hogosha\Monitor\Model\UrlInfo;
 use Hogosha\Monitor\Model\UrlProvider;
 use Hogosha\Monitor\Runner\Runner;
+use Hogosha\Monitor\Validator\Validator;
 use Webmozart\Console\IO\BufferedIO;
 
 /**
@@ -40,6 +41,7 @@ class RunnerTest extends \PHPUnit_Framework_TestCase
                     'method' => 'GET',
                     'headers' => [],
                     'timeout' => 1,
+                    'validator' => ['type' => 'html', 'match' => '/test/'],
                     'status_code' => 200,
                 ],
             ],
@@ -53,7 +55,7 @@ class RunnerTest extends \PHPUnit_Framework_TestCase
         $this->assertInstanceOf(UrlInfo::class, $urlProvider->getUrls()['google']);
         $this->assertInstanceOf(ResultCollection::class, $resultCollection);
         $this->assertInstanceOf(Result::class, $resultCollection[0]);
-        $this->assertEquals((new Result($this->createUrlInfo(), 200, 0)), $resultCollection[0]);
+        $this->assertEquals((new Result($this->createUrlInfo(), 200, 0, null, true)), $resultCollection[0]);
     }
 
     /**
@@ -79,6 +81,7 @@ class RunnerTest extends \PHPUnit_Framework_TestCase
             [],
             1,
             200,
+            (new Validator(['type' => 'html', 'match' => '/test/'])),
             null,
             null
         );

@@ -6,6 +6,7 @@ use Hogosha\Monitor\Guesser\StatusGuesser;
 use Hogosha\Monitor\Model\Result;
 use Hogosha\Monitor\Model\ResultCollection;
 use Hogosha\Monitor\Model\UrlInfo;
+use Hogosha\Monitor\Validator\Validator;
 
 /**
  * @author Guillaume Cavana <guillaume.cavana@gmail.com>
@@ -32,10 +33,12 @@ class StatusGuesserTest extends \PHPUnit_Framework_TestCase
 
     /**
      * createResult.
+     *
+     * @return Result
      */
     public function createResult()
     {
-        $result = new Result($this->createUrlInfo(), 200, 0.42);
+        $result = new Result($this->createUrlInfo(), 200, 0.42, null, false, null);
 
         return $result;
     }
@@ -49,6 +52,7 @@ class StatusGuesserTest extends \PHPUnit_Framework_TestCase
             [],
             1,
             404,
+            (new Validator()),
             null,
             null
         );

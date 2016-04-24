@@ -15,6 +15,8 @@
 
 namespace Hogosha\Monitor\Model;
 
+use Hogosha\Monitor\Validator\Validator;
+
 /**
  * @author Guillaume Cavana <guillaume.cavana@gmail.com>
  */
@@ -26,20 +28,22 @@ class UrlInfo
     protected $headers;
     protected $timeout;
     protected $expectedStatus;
+    protected $validator;
     protected $metricUuid;
     protected $serviceUuid;
 
     /**
      * Constructor.
      *
-     * @param string $name
-     * @param string $url
-     * @param string $method
-     * @param array  $headers
-     * @param int    $timeout
-     * @param int    $expectedStatus
-     * @param string $metricUuid
-     * @param string $serviceUuid
+     * @param string    $name
+     * @param string    $url
+     * @param string    $method
+     * @param array     $headers
+     * @param int       $timeout
+     * @param int       $expectedStatus
+     * @param Validator $validator
+     * @param string    $metricUuid
+     * @param string    $serviceUuid
      */
     public function __construct(
         $name,
@@ -48,6 +52,7 @@ class UrlInfo
         array $headers,
         $timeout,
         $expectedStatus,
+        Validator $validator,
         $metricUuid,
         $serviceUuid
     ) {
@@ -59,6 +64,7 @@ class UrlInfo
         $this->expectedStatus = $expectedStatus;
         $this->metricUuid = $metricUuid;
         $this->serviceUuid = $serviceUuid;
+        $this->validator = $validator;
     }
 
     /**
@@ -139,5 +145,15 @@ class UrlInfo
     public function getServiceUuid()
     {
         return $this->serviceUuid;
+    }
+
+    /**
+     * getValidator.
+     *
+     * @return Validator
+     */
+    public function getValidator()
+    {
+        return $this->validator;
     }
 }

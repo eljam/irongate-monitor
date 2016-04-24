@@ -49,7 +49,8 @@ class CsvRenderer implements RendererInterface
                 'Status Code',
                 'Name',
                 'Reponse Time',
-                'Error Log',
+                'Http Error Log',
+                'Validator Error Log',
             ]
         );
 
@@ -64,6 +65,7 @@ class CsvRenderer implements RendererInterface
                     $result->getUrl()->getName(),
                     $result->getReponseTime(),
                     $result->getHandlerError(),
+                    $result->getValidatorError(),
                 ]
             );
         }
