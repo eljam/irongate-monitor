@@ -75,6 +75,7 @@ class Runner
 
                                 $handlerError = null;
                                 $validatorError = null;
+                                $validatorResult = null;
 
                                 if ($tranferStats->hasResponse()) {
                                     $validatorResult = $url->getValidator()->check((string) $tranferStats->getResponse()->getBody());
