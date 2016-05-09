@@ -93,7 +93,8 @@ class Runner
                                     $handlerError = curl_strerror($tranferStats->getHandlerErrorData());
                                 }
 
-                                $resultCollection->append(
+                                $resultCollection->offsetSet(
+                                    $url->getName(),
                                     (new Result(
                                         $url,
                                         $statusCode,

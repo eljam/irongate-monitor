@@ -54,8 +54,8 @@ class RunnerTest extends \PHPUnit_Framework_TestCase
         $this->assertCount(1, $urlProvider->getUrls());
         $this->assertInstanceOf(UrlInfo::class, $urlProvider->getUrls()['google']);
         $this->assertInstanceOf(ResultCollection::class, $resultCollection);
-        $this->assertInstanceOf(Result::class, $resultCollection[0]);
-        $this->assertEquals((new Result($this->createUrlInfo(), 200, 0, null, true)), $resultCollection[0]);
+        $this->assertInstanceOf(Result::class, $resultCollection['google']);
+        $this->assertEquals((new Result($this->createUrlInfo(), 200, 0, null, true)), $resultCollection['google']);
     }
 
     /**
