@@ -19,6 +19,9 @@ use Concat\Http\Middleware\Logger;
 use GuzzleHttp\Client;
 use GuzzleHttp\HandlerStack;
 use GuzzleHttp\MessageFormatter;
+use GuzzleHttp\Middleware;
+use Hogosha\Monitor\Middleware\Backoff;
+use Hogosha\Monitor\Monitor;
 use Symfony\Component\Console\Logger\ConsoleLogger;
 use Webmozart\Console\Adapter\IOOutput;
 use Webmozart\Console\Api\IO\IO;
@@ -47,9 +50,16 @@ class GuzzleClient
 
         $stack->push($middleware, 'logger');
 
+        $stack->push(
+            Middleware::retry(Backoff::decider(), Backoff::delay())
+        );
+
         $defaults = [
             'handler' => $stack,
             'allow_redirects' => false,
+            'headers' => [
+                'User-Agent' => sprintf('Irongate Monitor %s', Monitor::VERSION),
+            ],
         ];
 
         $options = array_merge($defaults, $options);

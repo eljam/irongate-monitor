@@ -68,7 +68,7 @@ This will create an yml file with this configuration:
 
 ```yaml
 urls:
-    google:
+    google: #this has to be unique
         url: 'https://www.google.fr'
         method: GET
         headers: { Accept: text/html }
