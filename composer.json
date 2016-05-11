@@ -21,7 +21,7 @@
         "satooshi/php-coveralls": "^1.0",
         "symfony/finder": "^3.0",
         "symfony/options-resolver": "^3.0",
-        "hogosha/sdk": "^0.2",
+        "hogosha/sdk": "^0.3",
         "rtheunissen/guzzle-log-middleware": "^0.4.0",
         "symfony/property-access": "^3.0"
     },

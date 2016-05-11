@@ -15,6 +15,7 @@
 
 namespace Hogosha\Monitor\Pusher;
 
+use GuzzleHttp\Exception\BadResponseException;
 use Hogosha\Monitor\Guesser\StatusGuesser;
 use Hogosha\Monitor\Model\Result;
 use Hogosha\Sdk\Resource\Factory\ResourceFactory;
@@ -32,7 +33,7 @@ class MetricPusher extends AbstractPusher
         $statusGuesser = new StatusGuesser();
 
         if ($statusGuesser->isOk($result)) {
-            $resourceFactory = new ResourceFactory($this->getClient());
+            $resourceFactory = new ResourceFactory($this->client);
             $metricResource = $resourceFactory->get('metricPoint');
 
             try {
@@ -41,8 +42,8 @@ class MetricPusher extends AbstractPusher
                     'value' => $result->getReponseTime() * 1000,
                     'datetime' => date('Y-m-d H:i:s'),
                 ]);
-            } catch (\Exception $e) {
-                throw new \Exception(sprintf('An error has occured %s', $e->getMessage()));
+            } catch (BadResponseException $e) {
+                throw $e;
             }
         }
     }

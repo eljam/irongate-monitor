@@ -15,6 +15,7 @@
 
 namespace Hogosha\Monitor\Pusher;
 
+use GuzzleHttp\Exception\BadResponseException;
 use Hogosha\Monitor\Guesser\StatusGuesser;
 use Hogosha\Monitor\Model\Result;
 use Hogosha\Sdk\Resource\Factory\ResourceFactory;
@@ -31,7 +32,7 @@ class IncidentPusher extends AbstractPusher
     {
         $statusGuesser = new StatusGuesser();
 
-        $resourceFactory = new ResourceFactory($this->getClient());
+        $resourceFactory = new ResourceFactory($this->client);
         $incidentResource = $resourceFactory->get('incident');
 
         $serviceResource = $resourceFactory->get('service');
@@ -64,8 +65,8 @@ class IncidentPusher extends AbstractPusher
                     'status' => StatusGuesser::RESOLVED,
                 ]);
             }
-        } catch (\Exception $e) {
-            throw new \Exception(sprintf('An error has occured %s', $e->getMessage()));
+        } catch (BadResponseException $e) {
+            throw $e;
         }
     }
 }

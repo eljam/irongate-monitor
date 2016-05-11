@@ -19,7 +19,7 @@ use Concat\Http\Middleware\Logger;
 use GuzzleHttp\HandlerStack;
 use GuzzleHttp\MessageFormatter;
 use Hogosha\Monitor\Model\Result;
-use Hogosha\Sdk\Api\Client;
+use Hogosha\Sdk\Api\Client as SdkClient;
 use Symfony\Component\Console\Logger\ConsoleLogger;
 use Webmozart\Console\Adapter\IOOutput;
 use Webmozart\Console\Api\IO\IO;
@@ -32,7 +32,7 @@ abstract class AbstractPusher implements PusherInterface
     /**
      * $client.
      *
-     * @var Client
+     * @var SdkClient
      */
     protected $client;
 
@@ -53,12 +53,15 @@ abstract class AbstractPusher implements PusherInterface
     /**
      * Constructor.
      *
-     * @param array $options
+     * @param array  $options
+     * @param IO     $io
+     * @param Client $client
      */
-    public function __construct(array $options, IO $io)
+    public function __construct(array $options, IO $io, SdkClient $client = null)
     {
         $this->io = $io;
         $this->options = $options;
+        $this->client = null !== $client ? $client : $this->createClient();
     }
 
     /**
@@ -84,9 +87,9 @@ abstract class AbstractPusher implements PusherInterface
     /**
      * getClient.
      *
-     * @return Client
+     * @return SdkClient
      */
-    public function getClient()
+    protected function createClient()
     {
         $stack = HandlerStack::create();
 
@@ -97,7 +100,7 @@ abstract class AbstractPusher implements PusherInterface
 
         $stack->push($middleware, 'logger');
 
-        return new Client(
+        return new SdkClient(
             [
                 'username' => $this->options['username'],
                 'password' => $this->options['password'],
@@ -111,6 +114,8 @@ abstract class AbstractPusher implements PusherInterface
      * push.
      *
      * @param Result $result
+     *
+     * @throws \Exception
      *
      * @return mixed
      */

@@ -83,18 +83,4 @@ class UrlProvider
     {
         return $this->urls;
     }
-
-    /**
-     * getUrlByName.
-     *
-     * @param string $url
-     *
-     * @return UrlInfo
-     */
-    public function getUrlByName($url)
-    {
-        if (array_key_exists($url, $this->urls)) {
-            return $this->urls[$url];
-        }
-    }
 }

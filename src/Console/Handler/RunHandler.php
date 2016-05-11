@@ -15,11 +15,12 @@
 
 namespace Hogosha\Monitor\Console\Handler;
 
-use Hogosha\Monitor\Pusher\PusherManager;
+use GuzzleHttp\Exception\BadResponseException;
 use Hogosha\Monitor\Client\GuzzleClient;
 use Hogosha\Monitor\Configuration\ConfigurationLoader;
 use Hogosha\Monitor\DependencyInjection\Exception\ConfigurationLoadingException;
 use Hogosha\Monitor\Model\UrlProvider;
+use Hogosha\Monitor\Pusher\PusherManager;
 use Hogosha\Monitor\Renderer\RendererFactory;
 use Hogosha\Monitor\Runner\Runner;
 use Webmozart\Console\Api\Args\Args;
@@ -78,6 +79,13 @@ class RunHandler
                 $pusher = new PusherManager($config, $io);
                 $pusher->push($results);
             }
+        } catch (BadResponseException $e) {
+            $io->writeLine(
+                sprintf(
+                    '<error>Exception:</error> "%s"',
+                    $e->getMessage()
+                )
+            );
         } catch (ConfigurationLoadingException $e) {
             $io->writeLine(
                 sprintf(

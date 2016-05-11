@@ -1,5 +1,18 @@
 <?php
 
+/*
+ * This file is part of the hogosha-monitor package
+ *
+ * Copyright (c) 2016 Guillaume Cavana
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ *
+ * Feel free to edit as you please, and have fun.
+ *
+ * @author Guillaume Cavana <guillaume.cavana@gmail.com>
+ */
+
 namespace Hogosha\Monitor\Client;
 
 use Hogosha\Monitor\Configuration\ConfigurationDumper;
@@ -48,7 +61,7 @@ class InitHandlerTest extends \PHPUnit_Framework_TestCase
                 'incident_update' => false,
                 'default_failed_incident_message' => 'An error as occured, we are investigating %service_name%',
                 'default_resolved_incident_message' => 'The service %service_name% is back to normal',
-            ]
+            ],
         ];
 
         $content = '';
@@ -119,7 +132,7 @@ class InitHandlerTest extends \PHPUnit_Framework_TestCase
                     'incident_update' => false,
                     'default_failed_incident_message' => 'An error as occured, we are investigating %service_name%',
                     'default_resolved_incident_message' => 'The service %service_name% is back to normal',
-                ]
+                ],
             ],
             Yaml::parse(file_get_contents($file))
         );
@@ -189,7 +202,7 @@ class InitHandlerTest extends \PHPUnit_Framework_TestCase
                     'incident_update' => false,
                     'default_failed_incident_message' => 'An error as occured, we are investigating %service_name%',
                     'default_resolved_incident_message' => 'The service %service_name% is back to normal',
-                ]
+                ],
             ],
             Yaml::parse(file_get_contents($testFile))
         );

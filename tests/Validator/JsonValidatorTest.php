@@ -1,5 +1,18 @@
 <?php
 
+/*
+ * This file is part of the hogosha-monitor package
+ *
+ * Copyright (c) 2016 Guillaume Cavana
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ *
+ * Feel free to edit as you please, and have fun.
+ *
+ * @author Guillaume Cavana <guillaume.cavana@gmail.com>
+ */
+
 namespace Hogosha\Monitor\Validator;
 
 /**
@@ -8,7 +21,8 @@ namespace Hogosha\Monitor\Validator;
 class JsonValidatorTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * testCheckFalse
+     * testCheckFalse.
+     *
      * @expectedException Hogosha\Monitor\Exception\ValidatorException
      * @expectedExceptionMessage PropertyAccessor requires a graph of objects or arrays to operate on, but it found type "string" while trying to traverse path "name.toto" at property "toto".
      */
@@ -19,7 +33,8 @@ class JsonValidatorTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * testCheckFalse
+     * testCheckFalse.
+     *
      * @expectedException Hogosha\Monitor\Exception\ValidatorException
      * @expectedExceptionMessage This json is not valid
      */

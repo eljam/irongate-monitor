@@ -1,10 +1,22 @@
 <?php
 
+/*
+ * This file is part of the hogosha-monitor package
+ *
+ * Copyright (c) 2016 Guillaume Cavana
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ *
+ * Feel free to edit as you please, and have fun.
+ *
+ * @author Guillaume Cavana <guillaume.cavana@gmail.com>
+ */
+
 namespace Hogosha\Monitor\Renderer;
 
 use Hogosha\Monitor\Guesser\StatusGuesser;
 use Hogosha\Monitor\Model\Result;
-use Hogosha\Monitor\Model\ResultCollection;
 use Hogosha\Monitor\Model\UrlInfo;
 use Hogosha\Monitor\Validator\Validator;
 
